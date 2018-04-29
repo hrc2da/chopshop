@@ -1,7 +1,13 @@
 import React from 'react';
-import Block from './Block';
-let PartsBin = ({width,height,x,y}) =>{
-	return <React.Fragment>
+import BlockContainer from '../containers/BlockContainer';
+
+
+
+
+let PartsBin = ({width,height,x,y,partList}) =>{
+	let blockSize = 60; 
+  console.log(partList);
+  return <React.Fragment>
 			<rect 
 			width={width ? width : 600} 
 			height={height ? height : 400} 
@@ -10,7 +16,7 @@ let PartsBin = ({width,height,x,y}) =>{
 				strokeWidth:3,
 				stroke:"black"}}
 		/>
-		<Block x={10} y={y+10} />
-		</React.Fragment>
+    {Object.keys(partList).map((key, i) => <BlockContainer x={10+i*(blockSize+10)} y = {y+10} width = {width} size = {blockSize} img = {partList[key].img} type = {partList[key].type} name = {partList[key].name}/>)}   
+    </React.Fragment>
 }
 export default PartsBin;
