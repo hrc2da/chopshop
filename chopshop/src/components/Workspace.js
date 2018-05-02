@@ -11,9 +11,10 @@ let Workspace = (props) =>{
 				<Typography variant="display1">
 					This is the workspace.
 				</Typography>
-				<svg width = {props.width} height= {props.height}>
+				<svg width = {props.width} height = {props.height}>
 					<Pit width = {props.width} height = {props.height/2} />
-					<PartsBinContainer width = {props.width} height = {props.height/2} y= {props.height/2}/>
+          <PartsBinContainer width = {props.width} height = {props.height/2} 
+            y= {props.height/2}/>
 				</svg>
 			</Paper>
 		</div>);

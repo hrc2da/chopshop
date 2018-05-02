@@ -16,7 +16,15 @@ let PartsBin = ({width,height,x,y,partList}) =>{
 				strokeWidth:3,
 				stroke:"black"}}
 		/>
-    {Object.keys(partList).map((key, i) => <BlockContainer x={10+i*(blockSize+10)} y = {y+10} width = {width} size = {blockSize} img = {partList[key].img} type = {partList[key].type} name = {partList[key].name}/>)}   
+    {Object.keys(partList).map((key, i) => <BlockContainer 
+      x={10+i*(blockSize+10)} 
+      y = {y+10} 
+      width = {width} 
+      size = {blockSize} 
+      img = {partList[key].img} 
+      type = {partList[key].type} 
+      name = {partList[key].name}
+      value = {partList[key].value}/>)}   
     </React.Fragment>
 }
 export default PartsBin;

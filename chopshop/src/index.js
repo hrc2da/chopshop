@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import chopShopReducer from './reducers/index';
 import registerServiceWorker from './registerServiceWorker';
 import { createLogger } from 'redux-logger';
+//comment 2
 //comment
 function configureStore(preloadedState) {
 	return createStore(

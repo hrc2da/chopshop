@@ -9,6 +9,9 @@ class Block extends Component{
     y_i: this.props.y,
     h: this.props.size,
     w: this.props.size,
+    name: this.props.name,
+    value: this.props.value,
+    type: this.props.type,
     fill: "yellow"
   };
 
@@ -25,12 +28,16 @@ class Block extends Component{
     document.addEventListener('mousemove', this.handleMouseMove);
   };
   
-  handleMouseUp = () => {
+  handleMouseUp = (e) => {
+    console.log('event: ', e.target);
     document.removeEventListener('mousemove', this.handleMouseMove);
+    if (this.isInPit()) {
+      this.props.handleDrop(e);
+    }
     this.coords = {};
     this.setState({
-	x: this.state.x_i,
-	y: this.state.y_i
+     x: this.state.x_i,
+     y: this.state.y_i
     });
   };
   
@@ -49,6 +56,13 @@ class Block extends Component{
     this.handleOutOfBounds();
 
   };
+
+
+  isInPit = () => {
+    if (this.state.y < this.props.y_max/2)
+      return true;
+    return false;
+  }
 
   handleOutOfBounds = () => {
     //rightBound
@@ -77,20 +91,22 @@ class Block extends Component{
   render() {
     const { x, y, h, w, fill } = this.state;
     return (
-    <React.Fragment>
-    <g> <image
-	height={h}
-	width={w}
-	x={x}
-	y={y}
-  draggable='false'
-	onMouseDown={this.handleMouseDown}
-	onMouseUp={this.handleMouseUp}
-	preserveAspectRatio="none"
-	xlinkHref={this.state.img}
-     /> </g>
-    </React.Fragment>
-    )
+      <React.Fragment>
+      <g> <image
+      height={h}
+      width={w}
+      x={x}
+      y={y}
+      draggable='false'
+      onMouseDown={this.handleMouseDown}
+      onMouseUp={this.handleMouseUp}
+      preserveAspectRatio="none"
+      xlinkHref={this.state.img}
+      type={this.state.type}
+      value={this.state.value}
+      /> </g>
+      </React.Fragment>
+      )
   }
 }
 
