@@ -53,7 +53,7 @@ class Block extends Component{
       y: this.state.y - yDiff
     });
 
-    this.handleOutOfBounds();
+    this.handleOutOfBounds(e);
 
   };
 
@@ -64,25 +64,25 @@ class Block extends Component{
     return false;
   }
 
-  handleOutOfBounds = () => {
+  handleOutOfBounds = (e) => {
     //rightBound
     if (this.state.x + this.state.w > this.props.x_max) {
-      this.handleMouseUp();
+      this.handleMouseUp(e);
     }
 
     //leftBound
     if (this.state.x < 0) {
-      this.handleMouseUp();
+      this.handleMouseUp(e);
     }
 
     //upBound
     if (this.state.y < 0) {
-      this.handleMouseUp();
+      this.handleMouseUp(e);
     }
 
     //downBound
     if (this.state.y + this.state.h > this.props.y_max) {
-      this.handleMouseUp();
+      this.handleMouseUp(e);
     }
   }
 
