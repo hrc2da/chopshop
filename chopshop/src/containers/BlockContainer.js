@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Block from '../components/Block';
-import { setConfigVar } from '../actions/carConfig';
+import { setConfigVar, clearConfigVar } from '../actions/carConfig';
 function mapStateToProps(state) {
   return {
     x_max : state.dimensions ? state.dimensions.workspaceWidth : 0,

@@ -1,18 +1,18 @@
-import { WHEEL_SIZE } from '../actions/carConfig'
+import { WHEEL_SIZE, BODY, DRIVETRAIN, ENGINE } from '../actions/carConfig'
 
 
 let defaultState = {
-	dimensions: {
-		workspaceHeight: 800,
-		workspaceWidth: 1000
-	},
+  dimensions: {
+    workspaceHeight: 800,
+    workspaceWidth: 1000
+  },
 
   partList: {
-    wheel_16: {
+    wheel_17: {
       type: WHEEL_SIZE,
-      img: '/carIcons/16wheel.png',
-      name: '16" Wheel',
-      value: 16
+      img: '/carIcons/17wheel.png',
+      name: '17" Wheel',
+      value: 17
     },
     wheel_18: {
       type: WHEEL_SIZE,
@@ -25,6 +25,51 @@ let defaultState = {
       img: '/carIcons/19wheel.png',
       name: '19" Wheel',
       value: 19
+    },
+    body_rect: {
+      type: BODY,
+      img: 'carIcons/rect.png',
+      value: 'rectangle'
+    },
+    body_oval: {
+      type: BODY,
+      img: 'carIcons/oval.png',
+      value: 'oval'
+    },
+    body_tri: {
+      type: BODY,
+      img: 'carIcons/tri.png',
+      value: 'tri'
+    },
+    drivetrain_rwd: {
+      type: DRIVETRAIN,
+      img: 'carIcons/rwd.png',
+      value: 'rwd'
+    },
+    drivetrain_fwd: {
+      type: DRIVETRAIN,
+      img: 'carIcons/fwd.png',
+      value: 'fwd'
+    },
+    drivetrain_awd: {
+      type: DRIVETRAIN,
+      img: 'carIcons/awd.png',
+      value: 'awd'
+    },
+    engine_v3: {
+      type: ENGINE,
+      img: 'carIcons/v3.png',
+      value: 'v3'
+    },
+    engine_v6: {
+      type: ENGINE,
+      img: 'carIcons/v6.png',
+      value: 'v6'
+    },
+    engine_v8: {
+      type: ENGINE,
+      img: 'carIcons/v8.png',
+      value: 'v8'
     }
   }
 

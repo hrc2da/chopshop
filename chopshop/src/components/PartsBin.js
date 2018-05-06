@@ -17,8 +17,8 @@ let PartsBin = ({width,height,x,y,partList}) =>{
 				stroke:"black"}}
 		/>
     {Object.keys(partList).map((key, i) => <BlockContainer 
-      x={10+i*(blockSize+10)} 
-      y = {y+10} 
+      x = {getX(0, i, blockSize, 10, parseInt(width))}
+      y = {getY(y, i, blockSize, 10, parseInt(width))}
       width = {width} 
       size = {blockSize} 
       img = {partList[key].img} 
@@ -27,4 +27,21 @@ let PartsBin = ({width,height,x,y,partList}) =>{
       value = {partList[key].value}/>)}   
     </React.Fragment>
 }
+
+let getX = (x, i, blockSize, margin, maxWidth) => {
+  
+  //recalculating boundary without remainder, i.e boundary associated with
+  //maximum number of blocks
+  let realBoundary = maxWidth-maxWidth%(blockSize+margin); 
+  return x+margin+i*(blockSize+margin)%realBoundary;
+}
+let getY = (y, i, blockSize, margin, maxWidth) => {
+  let realBoundary = maxWidth-maxWidth%(blockSize+margin);
+  return y+margin+(blockSize+margin)*Math.floor(i*(blockSize+margin)/realBoundary);
+}
+
+
+
+
+
 export default PartsBin;

@@ -17,7 +17,12 @@ class Block extends Component{
 
   constructor(props) {
     super(props);
-    console.log(this.props);
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.x === nextProps.x && prevState.y === nextProps.y)
+      return null;
+    return {...prevState, ...nextProps, x_i : nextProps.x, y_i : nextProps.y};
   }
 
   handleMouseDown = (e) => {
@@ -25,13 +30,11 @@ class Block extends Component{
       x: e.pageX,
       y: e.pageY
     }
-    console.log("stringgggg", e.target.parentNode.parentNode)
     e.target.parentNode.parentNode.appendChild(e.target.parentNode);
     document.addEventListener('mousemove', this.handleMouseMove);
   };
   
   handleMouseUp = (e) => {
-    console.log('event: ', e.target);
     document.removeEventListener('mousemove', this.handleMouseMove);
     if (this.isInPit()) {
       this.props.handleDrop(e);
@@ -97,8 +100,8 @@ class Block extends Component{
       <g> <image
       height={h}
       width={w}
-      x={x}
-      y={y}
+      x={this.state.x}
+      y={this.state.y}
       draggable='false'
       onMouseDown={this.handleMouseDown}
       onMouseUp={this.handleMouseUp}
