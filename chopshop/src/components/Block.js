@@ -19,6 +19,7 @@ class Block extends Component{
     super(props);
   }
 
+  //Enables this.state to be updated when props is updated by PartsBin
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.x === nextProps.x && prevState.y === nextProps.y)
       return null;
