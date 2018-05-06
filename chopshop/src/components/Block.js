@@ -25,6 +25,8 @@ class Block extends Component{
       x: e.pageX,
       y: e.pageY
     }
+    console.log("stringgggg", e.target.parentNode.parentNode)
+    e.target.parentNode.parentNode.appendChild(e.target.parentNode);
     document.addEventListener('mousemove', this.handleMouseMove);
   };
   
