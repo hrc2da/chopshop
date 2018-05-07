@@ -29,7 +29,7 @@ let defaultState = {
     body_rect: {
       type: BODY,
       img: 'carIcons/rect.png',
-      value: 'rectangle'
+      value: 'rect'
     },
     body_oval: {
       type: BODY,
@@ -39,7 +39,7 @@ let defaultState = {
     body_tri: {
       type: BODY,
       img: 'carIcons/tri.png',
-      value: 'tri'
+      value: 'triangle'
     },
     drivetrain_rwd: {
       type: DRIVETRAIN,
