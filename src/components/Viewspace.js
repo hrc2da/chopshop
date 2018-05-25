@@ -4,7 +4,7 @@ import GaCarContainer from '../containers/GaCarContainer';
 let Viewspace = () => {
 return(
 	<Paper>
-		This is the viewspace
+		This is the viewspace!
   <GaCarContainer/>
 	</Paper>
 )
