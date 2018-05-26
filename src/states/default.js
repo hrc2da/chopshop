@@ -6,7 +6,20 @@ let defaultState = {
     workspaceHeight: 800,
     workspaceWidth: 1000
   },
-
+  carConfig: {
+    hull_poly1: [[-60, 130], [60, 130], [60, 110], [-60, 110]], 
+               hull_poly2: [[-15, 120], [15, 120], [20, 20], [-20, 20]],
+               hull_poly3: [[25, 20], [50, -10], [50, -40], [20, -90], [-20, -90], [-50, -40], [-50, -10], [-25, 20]], 
+               hull_poly4: [[-50, -120], [50, -120], [50, -90], [-50, -90]], 
+               hull_densities: [1.2040643615777822, 1.3543495591753878, 1.3917081355952508, 1.146669800908215],
+               eng_power: 168491227, 
+               wheel_pos: [[-55, 80], [55, 80], [-55, -82], [55, -82]], 
+               wheel_width: 14, 
+               wheel_rad: 27, 
+               wheel_moment: 35205.501730975186, 
+               drive_train: [true, false, true, true],  
+               friction_lim: 705348.2349731951
+  },
   partList: {
     wheel_17: {
       type: WHEEL_SIZE,

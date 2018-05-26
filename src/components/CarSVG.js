@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { clockwiseSort } from '../util/polygons'
 class CarSVG extends Component{
 
   constructor(props) {
@@ -21,9 +21,10 @@ class CarSVG extends Component{
     return [[wheel_pos[0]-wheel_w/2, wheel_pos[1]+wheel_r],[wheel_pos[0]+wheel_w/2, wheel_pos[1]+wheel_r],
       [wheel_pos[0]-wheel_w/2, wheel_pos[1]-wheel_r],[wheel_pos[0]+wheel_w/2, wheel_pos[1]-wheel_r]]
   }
-  coords2SVG(coords,fill,density,scale=0.5,xOffset=250,yOffset=250){
-    let offsetCoords = coords.map(x=>[parseInt(scale*(x[0])+xOffset), parseInt(scale*(x[1])+yOffset)]);
-    let sortedCoords = [offsetCoords[0],offsetCoords[1], offsetCoords[3], offsetCoords[2]];//.sort((a,b)=>a[0]-b[0])
+  coords2SVG(coords,fill,density=2.0,scale=0.5,xOffset=250,yOffset=250){
+    console.log("DENSITy",density)
+    let offsetCoords = coords.map(x=>[parseInt(scale*(x[0])+xOffset), parseInt(scale*(-x[1])+yOffset)]);
+    let sortedCoords = clockwiseSort(offsetCoords);//[offsetCoords[0],offsetCoords[1], offsetCoords[3], offsetCoords[2]];//.sort((a,b)=>a[0]-b[0])
     //let pathStr = "M 10 10 ";
     //console.log("BEFORE",offsetCoords);
     //let temp = sortedCoords[1];
@@ -37,7 +38,7 @@ class CarSVG extends Component{
     //close the path
     pathStr += " L "+sortedCoords[0][0]+" "+sortedCoords[0][1];
     console.log(pathStr);
-    return <path d={pathStr} fill={fill} fill-opacity={density/2.0}/>
+    return <path d={pathStr} fill={fill} fillOpacity={parseInt(density)/2.0}/>
   }
   render() {
     let bumper = this.props.config ? this.props.config.hull_poly1 : undefined;
@@ -45,7 +46,7 @@ class CarSVG extends Component{
     let hull2 = this.props.config ? this.props.config.hull_poly3 : undefined;
     let spoiler = this.props.config ? this.props.config.hull_poly4 : undefined;
     let wheels = this.props.config ? this.props.config.wheel_pos : undefined;
-    let wheel_coords = wheels.map(w => this.wheelattrs2Coords(this.props.config.wheel_rad, this.props.config.wheel_width, w));
+    let wheel_coords = wheels ? wheels.map(w => this.wheelattrs2Coords(this.props.config.wheel_rad, this.props.config.wheel_width, w)) : [];
     return (
       <React.Fragment>
         <svg height={500} width={500}>
