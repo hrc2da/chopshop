@@ -1,8 +1,10 @@
 export const WHEEL_SIZE = 'WHEEL_SIZE';
 export const BODY = 'BODY';
 export const DRIVETRAIN = 'DRIVETRAIN';
-export const ENGINE = 'ENGINE';
+export const ENGINE = 'ENGINE'
+export const ENG_POWER = 'ENG_POWER';
 
+const SET_ENG_POWER = 'SET_ENG_POWER';
 const SET_WHEEL_SIZE = 'SET_WHEEL_SIZE';
 const SET_BODY = 'SET_BODY';
 const SET_DRIVETRAIN = 'SET_DRIVETRAIN';
@@ -33,6 +35,11 @@ export const setConfigVar = (type, value) =>{
       return {
         type: SET_ENGINE,
         value: value
+      };
+    case ENG_POWER:
+      return {
+        type: SET_ENG_POWER,
+        value: value*1e6
       };
 
 

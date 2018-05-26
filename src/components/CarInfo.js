@@ -4,15 +4,26 @@ import TableBody from '@material-ui/core/Table';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
+import Slider from '@material-ui/lab/Slider';
+import Tooltip from '@material-ui/core/Tooltip';
 
-let CarInfo = ({config}) =>{
+let CarInfo = ({config,handleSlider}) =>{
   return <React.Fragment>
           <Table>
             <TableBody>
               <TableRow>
-                <TableCell>HorsePower:</TableCell>
-                <TableCell>350 hp</TableCell>
+                <TableCell>Horsepower:</TableCell>
+                <TableCell>
+                  <Tooltip title={Math.floor(config.eng_power/1e6)} placement="left" open={true}>
+                    <Slider
+                      max={600}
+                      min={100}
+                      step={10}
+                      value={Math.floor(config.eng_power/1e6)}
+                      onChange={(e,v)=>handleSlider(e,v)}
+                    />
+                  </Tooltip>
+                </TableCell>
                </TableRow>
                <TableRow>
                 <TableCell>Estimated Cost:</TableCell>
@@ -32,7 +43,6 @@ let CarInfo = ({config}) =>{
               </TableRow>
             </TableBody>
           </Table>
-        <Button variant="raised" color="primary">Test Drive</Button>
       </React.Fragment>
 }
 

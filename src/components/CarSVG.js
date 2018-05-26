@@ -21,9 +21,9 @@ class CarSVG extends Component{
     return [[wheel_pos[0]-wheel_w/2, wheel_pos[1]+wheel_r],[wheel_pos[0]+wheel_w/2, wheel_pos[1]+wheel_r],
       [wheel_pos[0]-wheel_w/2, wheel_pos[1]-wheel_r],[wheel_pos[0]+wheel_w/2, wheel_pos[1]-wheel_r]]
   }
-  coords2SVG(coords,fill,density=2.0,scale=0.5,xOffset=250,yOffset=250){
+  coords2SVG(coords,fill,density=2.0,scale=1.0,xOffset=275,yOffset=200){
     console.log("DENSITy",density)
-    let offsetCoords = coords.map(x=>[parseInt(scale*(x[0])+xOffset), parseInt(scale*(-x[1])+yOffset)]);
+    let offsetCoords = coords.map(x=>[parseInt(scale*(x[1])+xOffset), parseInt(scale*(x[0])+yOffset)]);
     let sortedCoords = clockwiseSort(offsetCoords);//[offsetCoords[0],offsetCoords[1], offsetCoords[3], offsetCoords[2]];//.sort((a,b)=>a[0]-b[0])
     //let pathStr = "M 10 10 ";
     //console.log("BEFORE",offsetCoords);
