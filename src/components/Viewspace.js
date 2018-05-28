@@ -6,7 +6,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import CarInfoContainer from '../containers/CarInfoContainer';
 import { withStyles } from '@material-ui/core/styles';
-import CostBenefitPlot from './CostBenefitPlot';
+import CostBenefitPlotContainer from '../containers/CostBenefitPlotContainer';
 import TestDrivePlayerContainer from '../containers/TestDrivePlayerContainer';
 function TabContainer(props) {
     return (
@@ -49,7 +49,7 @@ class Viewspace extends React.Component {
           <Tab label="Computer-Generated Cars" />
         </Tabs>
         {tabValue === 0 && <TabContainer><CarInfoContainer /></TabContainer>}
-        {tabValue === 1 && <TabContainer><CostBenefitPlot /></TabContainer>}
+        {tabValue === 1 && <TabContainer><CostBenefitPlotContainer /></TabContainer>}
         {tabValue === 2 && <TabContainer><GaCarContainer /></TabContainer>}
 	    </Paper>
       <Paper className={classes.player}>

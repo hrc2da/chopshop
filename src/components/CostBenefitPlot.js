@@ -1,8 +1,16 @@
 import { ResponsiveScatterPlot } from '@nivo/scatterplot';
 import React from 'react';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/Table';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
-let CostBenefitPlot = ()=>{
-return <ResponsiveScatterPlot
+
+let CostBenefitPlot = ({testedCars,gaCars})=>{
+  console.log("CARS",testedCars);
+  return <React.Fragment>
+    <ResponsiveScatterPlot
   //width={600}
  // height={400}
   margin={{
@@ -48,5 +56,18 @@ return <ResponsiveScatterPlot
           translateY: 60,
         }]}
 />
+    <Table>
+    <TableHead><TableCell>Tested Cars</TableCell></TableHead>
+        {testedCars.map(car=>{
+        console.log(car['result']);
+          return <TableRow>
+            {car['result'].map(objective=>{
+              console.log(objective);
+              return <TableCell>{objective}</TableCell>
+            })}
+
+        </TableRow>})}
+    </Table>
+    </React.Fragment>
   }
 export default CostBenefitPlot;

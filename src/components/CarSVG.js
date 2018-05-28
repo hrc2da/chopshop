@@ -51,13 +51,11 @@ class CarSVG extends Component{
     let yOffset = this.props.height ? this.props.height/2 : undefined;
     return (
       <React.Fragment>
-        <svg height={500} width={500}>
         {bumper && this.coords2SVG(bumper,"red",this.props.config.hull_densities[0],xOffset,yOffset)}
         {hull1 && this.coords2SVG(hull1,"red",this.props.config.hull_densities[1],xOffset,yOffset)}
         {hull2 && this.coords2SVG(hull2,"red",this.props.config.hull_densities[2],xOffset,yOffset)}
         {spoiler && this.coords2SVG(spoiler,"red",this.props.config.hull_densities[3],xOffset,yOffset)}
         {wheel_coords.map(w=>this.coords2SVG(w,"black",0.5+(1.0*this.props.config.friction_lim/1e6),xOffset,yOffset)) }
-        </svg>
       </React.Fragment>
       )
   }

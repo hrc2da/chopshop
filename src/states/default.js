@@ -24,6 +24,8 @@ let defaultState = {
                drive_train: [true, false, true, true],  
                friction_lim: 705348.2349731951
   },
+  testedCars: [],
+  gaCars: [],
   partList: {
     wheel_17: {
       type: WHEEL_SIZE,
