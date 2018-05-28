@@ -10,6 +10,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { createLogger } from 'redux-logger';
 import createSocketIoMiddleware from 'redux-socket.io';
 import io from 'socket.io-client'
+import thunkMiddleware from 'redux-thunk';
 
 //let socket = io('http://racecar.space:5000');
 //let socketIoMiddleware = createSocketIoMiddleware(socket, "ga/");
@@ -36,6 +37,7 @@ function configureStore(preloadedState) {
 		preloadedState,
 		applyMiddleware(
 			loggerMiddleware,
+      thunkMiddleware,
       //socketIoMiddleware
 		)
 	);

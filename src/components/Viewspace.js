@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import CarInfoContainer from '../containers/CarInfoContainer';
 import { withStyles } from '@material-ui/core/styles';
 import CostBenefitPlot from './CostBenefitPlot';
+import TestDrivePlayerContainer from '../containers/TestDrivePlayerContainer';
 function TabContainer(props) {
     return (
           <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -16,8 +17,15 @@ function TabContainer(props) {
 }
 const styles = {
   tabbedView: {
-      height:450,
-      overflow:'auto'
+    height: 350,
+    overflow:'auto',
+    marginBottom: 15
+  },
+
+  player: {
+    height:400,
+    width:400,
+    margin: 'auto'
   }
 
 };
@@ -33,6 +41,7 @@ class Viewspace extends React.Component {
     const { classes} = this.props;
     const { tabValue } = this.state;
     return(
+      <React.Fragment>
 	    <Paper className={classes.tabbedView}>
         <Tabs value={tabValue} onChange ={this.handleChange} scrollable scrollButtons="auto">
           <Tab label="Car Details" />
@@ -42,7 +51,12 @@ class Viewspace extends React.Component {
         {tabValue === 0 && <TabContainer><CarInfoContainer /></TabContainer>}
         {tabValue === 1 && <TabContainer><CostBenefitPlot /></TabContainer>}
         {tabValue === 2 && <TabContainer><GaCarContainer /></TabContainer>}
-	    </Paper>)
+	    </Paper>
+      <Paper className={classes.player}>
+        <TestDrivePlayerContainer />
+      </Paper>
+      </React.Fragment>
+    )
     }
 }
 

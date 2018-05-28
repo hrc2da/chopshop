@@ -21,7 +21,7 @@ class CarSVG extends Component{
     return [[wheel_pos[0]-wheel_w/2, wheel_pos[1]+wheel_r],[wheel_pos[0]+wheel_w/2, wheel_pos[1]+wheel_r],
       [wheel_pos[0]-wheel_w/2, wheel_pos[1]-wheel_r],[wheel_pos[0]+wheel_w/2, wheel_pos[1]-wheel_r]]
   }
-  coords2SVG(coords,fill,density=2.0,scale=1.0,xOffset=275,yOffset=200){
+  coords2SVG(coords,fill,density=2.0,xOffset=275,yOffset=200,scale=1.0){
     console.log("DENSITy",density)
     let offsetCoords = coords.map(x=>[parseInt(scale*(x[1])+xOffset), parseInt(scale*(x[0])+yOffset)]);
     let sortedCoords = clockwiseSort(offsetCoords);//[offsetCoords[0],offsetCoords[1], offsetCoords[3], offsetCoords[2]];//.sort((a,b)=>a[0]-b[0])
@@ -38,7 +38,7 @@ class CarSVG extends Component{
     //close the path
     pathStr += " L "+sortedCoords[0][0]+" "+sortedCoords[0][1];
     console.log(pathStr);
-    return <path d={pathStr} fill={fill} fillOpacity={parseInt(density)/2.0}/>
+    return <path d={pathStr} fill={fill} fillOpacity={parseFloat(density)/2.0}/>
   }
   render() {
     let bumper = this.props.config ? this.props.config.hull_poly1 : undefined;
@@ -47,14 +47,16 @@ class CarSVG extends Component{
     let spoiler = this.props.config ? this.props.config.hull_poly4 : undefined;
     let wheels = this.props.config ? this.props.config.wheel_pos : undefined;
     let wheel_coords = wheels ? wheels.map(w => this.wheelattrs2Coords(this.props.config.wheel_rad, this.props.config.wheel_width, w)) : [];
+    let xOffset = this.props.width ? this.props.width/2 : undefined;
+    let yOffset = this.props.height ? this.props.height/2 : undefined;
     return (
       <React.Fragment>
         <svg height={500} width={500}>
-        {bumper && this.coords2SVG(bumper,"red",this.props.config.hull_densities[0])}
-        {hull1 && this.coords2SVG(hull1,"red",this.props.config.hull_densities[1])}
-        {hull2 && this.coords2SVG(hull2,"red",this.props.config.hull_densities[2])}
-        {spoiler && this.coords2SVG(spoiler,"red",this.props.config.hull_densities[3])}
-        {wheel_coords.map(w=>this.coords2SVG(w,"black")) }
+        {bumper && this.coords2SVG(bumper,"red",this.props.config.hull_densities[0],xOffset,yOffset)}
+        {hull1 && this.coords2SVG(hull1,"red",this.props.config.hull_densities[1],xOffset,yOffset)}
+        {hull2 && this.coords2SVG(hull2,"red",this.props.config.hull_densities[2],xOffset,yOffset)}
+        {spoiler && this.coords2SVG(spoiler,"red",this.props.config.hull_densities[3],xOffset,yOffset)}
+        {wheel_coords.map(w=>this.coords2SVG(w,"black",0.5+(1.0*this.props.config.friction_lim/1e6),xOffset,yOffset)) }
         </svg>
       </React.Fragment>
       )

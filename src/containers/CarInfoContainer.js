@@ -9,7 +9,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch,state){
   return{
-    handleSlider: (e,v)=>{dispatch(setConfigVar(ENG_POWER,v));}
+    handleSlider: (e,v,type)=>{dispatch(setConfigVar(type,v));}
   }
 }
 

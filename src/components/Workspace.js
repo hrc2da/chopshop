@@ -18,7 +18,7 @@ const styles = theme => ({
 });
 
 let Workspace = (props) =>{
-	//console.log("Props",props);
+	console.log("Props",props);
   const  classes  = props.classes;
   console.log(classes);
 	return (<div id="workspace">
@@ -27,7 +27,7 @@ let Workspace = (props) =>{
       {/*<Typography variant="title" className={classes.flex}>
 					Build Your Car
 				</Typography>*/}
-        <Button className={classes.button} variant="raised" color="primary">Test Drive</Button>
+        <Button className={classes.button} variant="raised" color="primary" onClick = {props.handleTestDrive}>Test Drive</Button>
       </AppBar>
 				<svg width = {props.width} height = {props.height}>
 					<Pit width = {props.width} height = {props.height/2} />

@@ -5,12 +5,12 @@ const carConfig = (state={}, action) =>{
 	switch(action.type){
     case 'SET_ENG_POWER':
       return {...state, eng_power: action.value};
-    case 'SET_WHEEL_SIZE':
-      return {...state, wheelSize: action.value}; 
-    case 'SET_MATERIAL':
-      return {...state, material: action.value}; 
-    case 'SET_ENGINE':
-      return {...state, engine: action.value};
+    case 'SET_WHEEL_RAD':
+      return {...state, wheel_rad: action.value}; 
+    case 'SET_WHEEL_WIDTH':
+      return {...state, wheel_width: action.value}; 
+    case 'SET_FRICTION_LIM':
+      return {...state, friction_lim: action.value};
     case 'SET_BODY':
       let shape = [];
       switch(action.value){
