@@ -14,7 +14,7 @@ function mapStateToProps(state, ownProps) {
   console.log("transformed coords",transformedCoords);
   return {
     x_max : state.dimensions ? state.dimensions.workspaceWidth : 0,
-    y_max : state.dimensions ? state.dimensions.workspaceHeight : 0,
+    y_max : state.dimensions ? state.dimensions.workspaceHeight/2 : 0,
     x : transformedCoords[0][0],
     y : transformedCoords[0][1],
     r : 5,

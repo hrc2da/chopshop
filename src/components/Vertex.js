@@ -67,23 +67,27 @@ class Vertex extends Component{
 
   handleOutOfBounds = (e) => {
     //rightBound
-    if (this.props.x + this.props.w > this.props.x_max) {
-      this.props.handleMove(e,this.props.x_max,this.props.y,this.props.xOffset,this.props.yOffset,this.props.scale)
+    if (e.pageX + this.props.r > this.props.x_max) {
+      this.props.handleMove(e,this.props.x,this.props.y,this.props.xOffset,this.props.yOffset,this.props.scale)
+      this.handleMouseUp(e);
     }
 
     //leftBound
     if (this.props.x < 0) {
-      this.props.handleMove(e,0,this.props.y,this.props.xOffset,this.props.yOffset,this.props.scale)
+      this.props.handleMove(e,this.props.x,this.props.y,this.props.xOffset,this.props.yOffset,this.props.scale)
+      this.handleMouseUp(e);
     }
 
     //upBound
     if (this.props.y < 0) {
       this.props.handleMove(e,this.props.x,0,this.props.xOffset,this.props.yOffset,this.props.scale);
+      this.handleMouseUp(e);
     }
 
     //downBound
-    if (this.props.y + this.props.h > this.props.y_max) {
-      this.props.handleMove(this.props.y_max,0,this.props.xOffset,this.props.yOffset,this.props.scale);
+    if (this.props.y + this.props.r > this.props.y_max) {
+      this.props.handleMove(e,this.props.x,this.props.y_max,this.props.xOffset,this.props.yOffset,this.props.scale);
+      this.handleMouseUp(e);
     }
   }
 
