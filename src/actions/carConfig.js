@@ -6,6 +6,8 @@ export const ENG_POWER = 'ENG_POWER';
 export const WHEEL_RAD='WHEEL_RAD';
 export const WHEEL_WIDTH='WHEEL_WIDTH';
 export const FRICTION_LIM='FRICTION_LIM';
+export const HULL_VERTEX='HULL_VERTEX';
+
 
 const SET_ENG_POWER = 'SET_ENG_POWER';
 const SET_WHEEL_RAD = 'SET_WHEEL_RAD';
@@ -19,6 +21,7 @@ const CLEAR_BODY = 'CLEAR_BODY';
 const CLEAR_DRIVETRAIN = 'CLEAR_DRIVETRAIN';
 const CLEAR_ENGINE = 'CLEAR_ENGINE';
 const SET_WHEEL_SIZE = 'SET_WHEEL_SIZE';
+const SET_HULL_VERTEX = 'SET_HULL_VERTEX';
 
 export const setConfigVar = (type, value) =>{
   switch (type) {
@@ -47,7 +50,14 @@ export const setConfigVar = (type, value) =>{
         type: SET_WHEEL_RAD,
         value: value
       }
-
+    case HULL_VERTEX:
+      return {
+        type: SET_HULL_VERTEX,
+        polygon: value.polygon,
+        index: value.index,
+        x: value.x,
+        y: value.y
+      };
 
   }
 };

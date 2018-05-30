@@ -11,6 +11,9 @@ const carConfig = (state={}, action) =>{
       return {...state, wheel_width: action.value}; 
     case 'SET_FRICTION_LIM':
       return {...state, friction_lim: action.value};
+    case 'SET_HULL_VERTEX':
+      let polygon = state[action.polygon].map((v,i)=>(i===action.index ? [action.x,action.y] : v))
+      return {...state, [action.polygon]: polygon};
     case 'SET_BODY':
       let shape = [];
       switch(action.value){
