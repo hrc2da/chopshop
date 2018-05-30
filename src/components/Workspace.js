@@ -44,8 +44,6 @@ class  Workspace extends Component{
                                                                                           }
                                                                                       }}>
 					<Pit width = {this.props.width} ref = {this.pitRef} height = {this.props.height/2} config = {this.props.carConfig} />
-          <PartsBinContainer width = {this.props.width} height = {this.props.height/2} 
-            y= {this.props.height/2}/>
 				</svg>
 			</Paper>
 		</div>);
