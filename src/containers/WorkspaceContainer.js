@@ -5,7 +5,8 @@ function mapStateToProps(state){
 	return {
 		height: state.dimensions.workspaceHeight,
 		width: state.dimensions.workspaceWidth,
-    carConfig: state.carConfig
+    carConfig: state.carConfig,
+    loading: state.loading.indexOf('testDrive') >= 0
 	}
 
 }

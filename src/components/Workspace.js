@@ -32,7 +32,7 @@ class  Workspace extends Component{
       {/*<Typography variant="title" className={classes.flex}>
 					Build Your Car
 				</Typography>*/}
-        <Button className={classes.button} variant="raised" color="primary" onClick = {this.props.handleTestDrive}>Test Drive</Button>
+        <Button className={classes.button} disabled = {this.props.loading} variant="raised" color="primary" onClick = {this.props.handleTestDrive}>Test Drive</Button>
       </AppBar>
 				<svg width = {this.props.width} height = {this.props.height} onMouseUp = {(e)=>{ console.log(this.pitRef.current.vertexRefs);
                                                                                         let vertexRefs = this.pitRef.current.vertexRefs;
@@ -43,7 +43,7 @@ class  Workspace extends Component{
 
                                                                                           }
                                                                                       }}>
-					<Pit width = {this.props.width} ref = {this.pitRef} height = {this.props.height/2} config = {this.props.carConfig} />
+					<Pit width = {this.props.width} ref = {this.pitRef} height = {this.props.height} config = {this.props.carConfig} />
 				</svg>
 			</Paper>
 		</div>);

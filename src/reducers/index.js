@@ -4,6 +4,7 @@ import partList from './partList';
 import carConfig from './carConfig';
 import gaCars from './gaCars';
 import testedCars from './testedCars';
+import loading from './loading';
 import {carRacingUrl,carRacingStaticUrl,carRacingApiUrl,testDriveVideo} from './paths';
 const chopShopReducer = combineReducers({
 	dimensions,
@@ -14,7 +15,8 @@ const chopShopReducer = combineReducers({
   carRacingStaticUrl,
   carRacingApiUrl,
   testDriveVideo,
-  testedCars
+  testedCars,
+  loading
 });
 
 export default chopShopReducer;

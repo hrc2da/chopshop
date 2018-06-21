@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import TestDrivePlayer from '../components/TestDrivePlayer'; 
 function mapStateToProps(state) {
   return {
-    path: state.testDriveVideo &&  state.carRacingStaticUrl+state.testDriveVideo
+    path: state.testDriveVideo &&  state.carRacingStaticUrl+state.testDriveVideo,
+    loading: state.loading.indexOf("testDrive") >= 0
   }
 
 }
