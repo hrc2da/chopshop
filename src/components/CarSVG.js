@@ -6,11 +6,11 @@ export const transform = (coords,xOffset,yOffset,scale=1.0,rotation=90)=>{
   //coords.map(v=>[parseInt(scale*(Math.cos(theta)*v[0]-Math.sin(theta)*v[1]))+xOffset,
   //              parseInt(scale*(Math.sin(theta)*v[0]+Math.cos(theta)*v[1]))+yOffset])
   console.log('GOT COORDS',coords);
-  return coords.map(v=>[parseInt(scale*(v[1])+xOffset), parseInt(scale*(v[0])+yOffset)])
+  return coords.map(v=>[parseInt(scale*(v[0])+xOffset), parseInt(scale*(v[1])+yOffset)])
 }
 
-export const invtransform = (coords,xOffset,yOffset,scale=1.0,rotation=90)=>{
-  return coords.map(v=>[parseInt((v[1]-yOffset)*(1.0/scale)),parseInt((v[0]-xOffset)*(1.0/scale))])
+export const invtransform = (coords,xOffset,yOffset,scale=2.0,rotation=90)=>{
+  return coords.map(v=>[parseInt((v[0]-xOffset)*(1.0/scale)),parseInt((v[1]-yOffset)*(1.0/scale))])
 }
 class CarSVG extends Component{
 
@@ -33,7 +33,7 @@ class CarSVG extends Component{
     return [[wheel_pos[0]-wheel_w/2, wheel_pos[1]+wheel_r],[wheel_pos[0]+wheel_w/2, wheel_pos[1]+wheel_r],
       [wheel_pos[0]-wheel_w/2, wheel_pos[1]-wheel_r],[wheel_pos[0]+wheel_w/2, wheel_pos[1]-wheel_r]]
   }
-  coords2SVG(coords,fill,density=2.0,xOffset=275,yOffset=200,scale=1.0){
+  coords2SVG(coords,fill,density=2.0,xOffset=275,yOffset=200,scale=2.0){
     //console.log("DENSITy",density)
     let offsetCoords = transform(coords,xOffset,yOffset,scale)//coords.map(x=>[parseInt(scale*(x[1])+xOffset), parseInt(scale*(x[0])+yOffset)]);
     let sortedCoords = clockwiseSort(offsetCoords);//[offsetCoords[0],offsetCoords[1], offsetCoords[3], offsetCoords[2]];//.sort((a,b)=>a[0]-b[0])

@@ -42,17 +42,18 @@ class Vertex extends Component{
   handleMouseMove = (e) => {
     e.preventDefault();
     console.log("moving");
-    //const xDiff = this.coords.x - e.pageX;
-    const yDiff = this.coords.y - e.pageY;
+    const xDiff = this.coords.x - e.pageX;
+    const yDiff = 0;
+    // const yDiff = this.coords.y - e.pageY;
   //ignoring x to constrain motion to the y direction
-    //this.coords.x = e.pageX;
-    this.coords.y = e.pageY;
+    this.coords.x = e.pageX;
+    //this.coords.y = e.pageY;
 
     //this.setState({
     //  x: this.state.x - xDiff,
     //  y: this.state.y - yDiff
     //});
-    this.props.handleMove(e,this.props.x,this.props.y-yDiff,this.props.xOffset,this.props.yOffset,this.props.scale);
+    this.props.handleMove(e,this.props.x-xDiff,this.props.y-yDiff,this.props.xOffset,this.props.yOffset,this.props.scale);
 
     this.handleOutOfBounds(e);
 

@@ -4,7 +4,7 @@ import CarSVG from '../components/CarSVG';
 function mapStateToProps(state) {
   return {
     config: state.carConfig,
-    height: state.dimensions.workspaceHeight/2,
+    height: state.dimensions.workspaceHeight,
     width: state.dimensions.workspaceWidth
   }
 
