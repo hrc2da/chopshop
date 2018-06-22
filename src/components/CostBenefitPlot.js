@@ -39,7 +39,12 @@ let CostBenefitPlot = ({testedCars,gaCars})=>{
   if(gaCars.length>0){
     cars.push({
       label: 'Computer-Generated Cars',
-      data: gaCars.map(((car,index)=>{return {id:index, x: car['result'][0], y: car['result'][1]};}))
+      data: gaCars.map(((car,index)=>{return {id:index, x: car['result'][0], y: car['result'][1]};})),
+      pointHoverBorderWidth: 10,
+      pointBorderWidth: 5,
+      pointHoverRadius: 20,
+      pointRadius: 10,
+      pointHitRadius: 50,
     });
     labels.push('Computer-Generated Cars');
   }
@@ -49,7 +54,29 @@ let CostBenefitPlot = ({testedCars,gaCars})=>{
   }
   console.log(cars);
   return <div>
-  <Scatter data={data} />
+  <Scatter 
+    data={data}
+    options ={{
+      scales: {
+          xAxes: [{
+              type: 'linear',
+              position: 'bottom',
+              scaleLabel:{
+                display:true,
+                labelString: 'Test Drive Score'
+              }
+          }],
+          yAxes: [{
+            position: 'left',
+            scaleLabel:{
+              display:true,
+              labelString: 'Total Cost'
+            }
+        }], 
+      }
+    }
+  }
+  />
 </div> 
 };
   /*return <React.Fragment>
