@@ -25,7 +25,7 @@ class Vertex extends Component{
   
   handleMouseUp = (e) => {
     e.preventDefault();
-    console.log("MOUSE UP!");
+    console.log("MOUSE UP! here");
     this.stroke=1;
     this.fill="white";
     document.removeEventListener('mousemove', this.handleMouseMove);
@@ -41,7 +41,7 @@ class Vertex extends Component{
   
   handleMouseMove = (e) => {
     e.preventDefault();
-    console.log("moving");
+    console.log("moving!!!!!!!!!!!!!!!!!!!!!!");
     const xDiff = this.coords.x - e.pageX;
     const yDiff = 0;
     // const yDiff = this.coords.y - e.pageY;

@@ -50,7 +50,7 @@ class CarSVG extends Component{
     //close the path
     pathStr += " L "+sortedCoords[0][0]+" "+sortedCoords[0][1];
     //console.log(pathStr);
-    return <path d={pathStr} fill={fill} fillOpacity={parseFloat(density)/2.0}/>
+    return <path d={pathStr} fill={fill} fillOpacity={parseFloat(density)/1.0}/>
   }
   render() {
     let bumper = this.props.config ? this.props.config.hull_poly1 : undefined;
@@ -67,7 +67,7 @@ class CarSVG extends Component{
         {hull1 && this.coords2SVG(hull1,"red",this.props.config.hull_densities[1],xOffset,yOffset)}
         {hull2 && this.coords2SVG(hull2,"red",this.props.config.hull_densities[2],xOffset,yOffset)}
         {spoiler && this.coords2SVG(spoiler,"red",this.props.config.hull_densities[3],xOffset,yOffset)}
-        {wheel_coords.map(w=>this.coords2SVG(w,"black",0.5+(1.0*this.props.config.friction_lim/1e6),xOffset,yOffset)) }
+        {wheel_coords.map(w=>this.coords2SVG(w,"black",0.5+(0.25*this.props.config.friction_lim/1e3),xOffset,yOffset)) }
       </React.Fragment>
       )
   }
