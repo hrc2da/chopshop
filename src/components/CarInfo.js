@@ -7,7 +7,44 @@ import TableRow from '@material-ui/core/TableRow';
 import Slider from '@material-ui/lab/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
 
-let CarInfo = ({config,handleSlider}) =>{
+export const calculateCarCost = (config)=>{
+  //body material cost
+  const bodyCost = calculateBodyCost(config);
+  //tire cost
+  const tireCost = calculateTireCost(config);
+  //wheel cost
+  const wheelCost = calculateWheelCost(config);
+  //engine cost
+  const engineCost = calculateEngineCost(config);
+  //drivetrain cost
+  const drivetrainCost = calculateDrivetrainCost(config);
+  return bodyCost + tireCost + wheelCost + engineCost + drivetrainCost;
+}
+
+export const calculateBodyCost = (config)=>{
+  //get the area of each hull and sum for now
+  let materialCost = 0.5; //cost per pixel of material  
+  //in the future, this will be a function^^
+  return 10000;
+}
+export const calculateTireCost = (config) =>{
+  //tire cost is based on the width, tread, and wheel radius 
+  return 4*(config.wheel_rad+config.wheel_width+config.friction_lim/1e2);
+}
+export const calculateWheelCost = (config)=>{
+  //wheel cost is based on wheel radius and moment
+  return 4*(Math.PI*config.wheel_rad*config.wheel_rad);
+}
+export const calculateEngineCost = (config)=>{
+  //engine cost is based on power
+  return 100*config.eng_power/1e4;
+}
+export const calculateDrivetrainCost = (config)=>{
+  //switch statement for fwd, rwd, awd
+  return 1000;//
+}
+
+let CarInfo = ({config,cost,handleSlider}) =>{
   return <React.Fragment>
           <Table>
             <TableBody>
@@ -44,14 +81,14 @@ let CarInfo = ({config,handleSlider}) =>{
                <TableRow>
                 <TableCell>Tire Tread:</TableCell>
                 <TableCell>
-                  <Tooltip title={Math.floor(config.friction_lim/1e4)} placement="left" open={true}>
+                  <Tooltip title={Math.floor(config.friction_lim/1e2)} placement="left" open={true}>
                     <Slider
                       id="FRICTION_LIM"
-                      max={100}
-                      min={30}
+                      max={10}
+                      min={1}
                       step={1}
-                      value={Math.floor(config.friction_lim/1e4)}
-                      onChange={(e,v)=>handleSlider(e,v*1e4,"FRICTION_LIM")}
+                      value={Math.floor(config.friction_lim/1e2)}
+                      onChange={(e,v)=>handleSlider(e,v*1e2,"FRICTION_LIM")}
                     />
                   </Tooltip>
                 </TableCell>
@@ -59,21 +96,21 @@ let CarInfo = ({config,handleSlider}) =>{
 <TableRow>
                 <TableCell>Horsepower:</TableCell>
                 <TableCell>
-                  <Tooltip title={Math.floor(config.eng_power/1e6)} placement="left" open={true}>
+                  <Tooltip title={Math.floor(config.eng_power/1e3)} placement="left" open={true}>
                     <Slider
                       id="ENG_POWER"
                       max={600}
-                      min={100}
+                      min={10}
                       step={10}
-                      value={Math.floor(config.eng_power/1e6)}
-                      onChange={(e,v)=>handleSlider(e,v,"ENG_POWER")}
+                      value={Math.floor(config.eng_power/1e3)}
+                      onChange={(e,v)=>handleSlider(e,v*1e3,"ENG_POWER")}
                     />
                   </Tooltip>
                 </TableCell>
                </TableRow>
                <TableRow>
                 <TableCell>Estimated Cost:</TableCell>
-                <TableCell>$85,000</TableCell>
+                <TableCell>${Math.floor(calculateCarCost(config))}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Car Weight:</TableCell>

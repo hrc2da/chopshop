@@ -43,7 +43,7 @@ export const setConfigVar = (type, value) =>{
     case ENG_POWER:
       return {
         type: SET_ENG_POWER,
-        value: value*1e6
+        value: value
       };
     case WHEEL_RAD:
       return {
