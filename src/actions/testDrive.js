@@ -15,10 +15,10 @@ export const setTestDriveVideo = (video) =>{
 	};
 };
 
-export const addTestedCar = (config,result) =>{
+export const addTestedCar = (config,result,video) =>{
   return {
     type: ADD_TESTED_CAR,
-    value: {config: config, result:result}
+    value: {config: config, result:result, video:video}
   }
 };
 
@@ -40,7 +40,7 @@ const callTestDrive = (carConfig,apiUrl) =>{
     })
     .then(json => {
       dispatch(setTestDriveVideo(json.video)); //set the video
-      dispatch(addTestedCar(carConfig,json.result)); //add the results
+      dispatch(addTestedCar(carConfig,json.result,json.video)); //add the results
     });
   };
 };
