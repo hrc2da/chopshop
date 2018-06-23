@@ -8,6 +8,7 @@ import CarInfoContainer from '../containers/CarInfoContainer';
 import { withStyles } from '@material-ui/core/styles';
 import CostBenefitPlotContainer from '../containers/CostBenefitPlotContainer';
 import TestDrivePlayerContainer from '../containers/TestDrivePlayerContainer';
+import { TAB_TOP,TAB_BOTTOM } from '../actions/tabs';
 function TabContainer(props) {
     return (
           <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -20,6 +21,9 @@ const styles = {
     height: 350,
     overflow:'auto',
     marginBottom: 15
+  },
+  tab: {
+    height:350
   },
 
   player: {
@@ -43,14 +47,14 @@ class Viewspace extends React.Component {
     return(
       <React.Fragment>
 	    <Paper className={classes.tabbedView}>
-        <Tabs value={tabValue} onChange ={this.handleChange} scrollable scrollButtons="auto">
+        <Tabs value={this.props.tabValueTop} onChange ={(e,v)=>this.props.handleSwitchTab(e,TAB_TOP,v)} scrollable scrollButtons="auto">
           <Tab label="Car Details" />
           <Tab label="Test Drives" />
           <Tab label="Computer-Generated Cars" />
         </Tabs>
-        {tabValue === 0 && <TabContainer><CarInfoContainer /></TabContainer>}
-        {tabValue === 1 && <TabContainer><CostBenefitPlotContainer /></TabContainer>}
-        {tabValue === 2 && <TabContainer><GaCarContainer /></TabContainer>}
+        {this.props.tabValueTop === 0 && <TabContainer><CarInfoContainer /></TabContainer>}
+        {this.props.tabValueTop === 1 && <TabContainer className={classes.tab}><CostBenefitPlotContainer /></TabContainer>}
+        {this.props.tabValueTop === 2 && <TabContainer><GaCarContainer /></TabContainer>}
 	    </Paper>
       <Paper className={classes.player}>
         <TestDrivePlayerContainer />
