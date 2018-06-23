@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import logo from './logo.svg';
 import './App.css';
 
-import Viewspace from './components/Viewspace';
+import ViewspaceContainer from './containers/ViewspaceContainer';
 import WorkspaceContainer from './containers/WorkspaceContainer';
 
 import { setWorkspaceWidth } from './actions/dimensions.js';
@@ -31,7 +31,7 @@ render() {
 			<WorkspaceContainer />
 		</Grid>
 		<Grid item xs={6}>
-			<Viewspace />
+			<ViewspaceContainer />
 		</Grid>
 	</Grid>
       </div>
