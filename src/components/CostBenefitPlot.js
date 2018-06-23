@@ -16,10 +16,24 @@ export const adjustReward = (result)=>{
 
 
 
-let CostBenefitPlot = ({testedCars,gaCars})=>{
+let CostBenefitPlot = ({testedCars,gaCars,handleSelectCompCar,handleClearCompCar})=>{
   console.log("CARS",testedCars);
   let cars = [];
   let labels = [];
+  
+  if(gaCars.length>0){
+    cars.push({
+      label: 'Computer-Generated Cars',
+      data: gaCars.map(((car,index)=>{return {id:index, x: car['result'][0], y: car['result'][1]};})),
+      pointHoverBorderWidth: 10,
+      pointBorderWidth: 5,
+      pointHoverRadius: 20,
+      pointRadius: 10,
+      pointHitRadius: 50,
+    });
+    labels.push('Computer-Generated Cars');
+  }
+ 
   if(testedCars.length>0){
     cars.push({
       label: 'My Cars',
@@ -36,19 +50,7 @@ let CostBenefitPlot = ({testedCars,gaCars})=>{
     });
     labels.push('My Cars');
   }
-  if(gaCars.length>0){
-    cars.push({
-      label: 'Computer-Generated Cars',
-      data: gaCars.map(((car,index)=>{return {id:index, x: car['result'][0], y: car['result'][1]};})),
-      pointHoverBorderWidth: 10,
-      pointBorderWidth: 5,
-      pointHoverRadius: 20,
-      pointRadius: 10,
-      pointHitRadius: 50,
-    });
-    labels.push('Computer-Generated Cars');
-  }
-  const data = {
+ const data = {
     labels:labels,
     datasets:cars
   }
@@ -56,6 +58,18 @@ let CostBenefitPlot = ({testedCars,gaCars})=>{
   return <div>
   <Scatter 
     data={data}
+    getElementAtEvent={(e)=>{
+      //assume it's only one element (I think that's why this is singular?)
+      if (e.length > 0){
+        let element = e[0];
+        let type = element._datasetIndex == 0 ? "gaCars" : "testedCars";
+        return handleSelectCompCar(e,type,element._index);
+      }
+      else{
+        return handleClearCompCar(e);
+      }
+
+    }}
     options ={{
       scales: {
           xAxes: [{

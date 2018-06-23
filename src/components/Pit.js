@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserCarContainer from '../containers/UserCarContainer';
 import VertexContainer from '../containers/VertexContainer';
+import CompCarContainer from '../containers/CompCarContainer';
 class Pit extends Component{
   constructor(props) {
      super(props);
@@ -113,6 +114,7 @@ class Pit extends Component{
             strokeLinejoin="bevel"
           />*/}
           <UserCarContainer />
+          <CompCarContainer />
           {this.polyhulls.map((p,i)=>p.map((v,j)=>{
             console.log(0+this.polyhulls.slice(0,i).reduce((a,p)=>a+p.length,0));
             return <VertexContainer 

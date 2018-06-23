@@ -69,7 +69,7 @@ let CarInfo = ({config,cost,handleSlider}) =>{
                   <Tooltip title={config.wheel_width} placement="left" open={true}>
                     <Slider
                       id="WHEEL_WIDTH"
-                      max={20}
+                      max={40}
                       min={5}
                       step={1}
                       value={config.wheel_width}
