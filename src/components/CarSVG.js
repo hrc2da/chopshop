@@ -64,8 +64,10 @@ class CarSVG extends Component{
 
     let wheelPairs = []
     if(wheels){
-      let frontPair = wheels.filter(w=>w[1]==(wheels.reduce((a,w)=>Math.min(a,w[1]),0)));
-      let rearPair = wheels.filter(w=>w[1]==(wheels.reduce((a,w)=>Math.max(a,w[1]),0)));
+      let maxWheelPosY = wheels.reduce((a,w)=>Math.max(a,w[1]),0);
+      let minWheelPosY = wheels.reduce((a,w)=>Math.min(a,w[1]),maxWheelPosY);
+      let frontPair = wheels.filter(w=>w[1]==minWheelPosY); //not sure how to initialize min, just did a big number
+      let rearPair = wheels.filter(w=>w[1]==maxWheelPosY);
       console.log("FRONT PAIR",frontPair);
       console.log("REAR PAIR", rearPair);
       wheelPairs = [frontPair,rearPair].map((pair)=>transform(pair,xOffset,yOffset,2.0));
