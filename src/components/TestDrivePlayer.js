@@ -16,8 +16,8 @@ export default withStyles(styles)(({path,loading,classes}) =>{
     <div>
 { loading &&
   <div>
-   <CircularProgress size={300} thickness={5} className = {classes.progress}/>
-   <Typography variant='subheading'>Test driving your car...</Typography>
+   <CircularProgress style={{color:"white"}} size={300} thickness={5} className = {classes.progress}/>
+   <Typography style={{color:"white"}} variant='subheading'>Test driving your car...</Typography>
    </div>
    }
       { path && !loading && <Player

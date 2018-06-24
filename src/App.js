@@ -25,7 +25,7 @@ componentWillUnmount() {
 render() {
     return (
       <div className="App">
-          <Typography variant="display3">Car Racing Workshop</Typography>
+          <Typography variant="display1">Car Racing Workshop</Typography>
 	<Grid container spacing={16}>
 	    	<Grid item xs={6}>
 			<WorkspaceContainer />

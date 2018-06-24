@@ -1,4 +1,4 @@
-import {setTab,TAB_TOP} from './tabs';
+import {setTab,TAB_TOP, TEST_DRIVE_TAB} from './tabs';
 
 export const SET_TEST_DRIVE_VIDEO = 'SET_TEST_DRIVE_VIDEO';
 export const INIT_TEST_DRIVE = 'INIT_TEST_DRIVE';
@@ -43,7 +43,7 @@ const callTestDrive = (carConfig,apiUrl) =>{
     .then(json => {
       dispatch(setTestDriveVideo(json.video)); //set the video
       dispatch(addTestedCar(carConfig,json.result,json.video)); //add the results
-      dispatch(setTab(TAB_TOP,1));
+      dispatch(setTab(TAB_TOP,TEST_DRIVE_TAB));
     });
   };
 };

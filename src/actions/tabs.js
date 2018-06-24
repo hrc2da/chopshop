@@ -2,7 +2,7 @@ export const SET_TAB_TOP = 'SET_TAB_TOP';
 export const SET_TAB_BOTTOM = 'SET_TAB_BOTTOM';
 export const TAB_TOP = 'TAB_TOP';
 export const TAB_BOTTOM = 'TAB_BOTTOM';
-
+export const TEST_DRIVE_TAB = 1;
 export const setTab = (tabbedView,value) =>{
 	switch(tabbedView){
         case TAB_TOP:
