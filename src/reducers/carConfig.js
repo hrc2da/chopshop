@@ -12,7 +12,21 @@ const carConfig = (state={}, action) =>{
     case 'SET_FRICTION_LIM':
       return {...state, friction_lim: action.value};
     case 'SET_HULL_VERTEX':
-      let polygon = state[action.polygon].map((v,i)=>(i===action.index ? [action.x,action.y] : v))
+      let vCopy = state[action.polygon][action.index];
+      let mirrorIndex = -1;
+      for(let i=0; i<state[action.polygon].length; i++){
+        if(state[action.polygon][i][0]==-vCopy[0]&&state[action.polygon][i][1]==vCopy[1]){
+          console.log("BRREEAAAAAAAKINGGGGGGGG!!!!!!!!!!!!")
+          mirrorIndex = i;
+          break;
+        }
+      }
+      //let mirrorIndex = state[action.polygon].indexOf([-vCopy[0],vCopy[1]]);
+      let polygon = state[action.polygon].map((v,i)=>(i===action.index ? [action.x,action.y] : v));
+      console.log("INDICES",vCopy, state[action.polygon][mirrorIndex]);
+      if(mirrorIndex>=0){
+        polygon[mirrorIndex] = [-action.x,action.y];
+      }
       return {...state, [action.polygon]: polygon};
     case 'SET_BODY':
       let shape = [];
