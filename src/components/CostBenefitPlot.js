@@ -1,6 +1,7 @@
 import { ScatterPlot,ResponsiveScatterPlot } from '@nivo/scatterplot';
 import { Scatter } from 'react-chartjs-2';
 import React from 'react';
+import {calculateCarCost} from './CarInfo';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/Table';
 import TableCell from '@material-ui/core/TableCell';
@@ -24,7 +25,11 @@ let CostBenefitPlot = ({testedCars,gaCars,handleSelectCompCar,handleClearCompCar
   if(gaCars.length>0){
     cars.push({
       label: 'Computer-Generated Cars',
-      data: gaCars.map(((car,index)=>{return {id:index, x: car['result'][0], y: car['result'][1]};})),
+      data: gaCars.map(((car,index)=>{
+        let cost = car['result'][1]+calculateCarCost(car['config']);
+        let benefit = car['result'][0]-car['result'][2]
+        return {id:index, x: benefit, y: cost};
+      })),
       pointHoverBorderWidth: 10,
       pointBorderWidth: 5,
       pointHoverRadius: 20,
@@ -37,7 +42,11 @@ let CostBenefitPlot = ({testedCars,gaCars,handleSelectCompCar,handleClearCompCar
   if(testedCars.length>0){
     cars.push({
       label: 'My Cars',
-      data: testedCars.map(((car,index)=>{return {id:index, x: car['result'][0], y: car['result'][1]};})),
+      data: testedCars.map(((car,index)=>{
+        let cost = car['result'][1]+calculateCarCost(car['config']);
+        let benefit = car['result'][0]-car['result'][2]
+        return {id:index, x: benefit, y: cost};
+      })),
       backgroundColor: 'rgba(75,192,192,0.4)',
       pointBorderColor: 'rgba(75,192,192,1)',
       pointBorderWidth: 5,
