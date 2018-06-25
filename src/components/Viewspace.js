@@ -3,10 +3,12 @@ import Paper from '@material-ui/core/Paper';
 import { withTheme } from '@material-ui/core/styles';
 import GaCarContainer from '../containers/GaCarContainer';
 import UserCarRadarContainer from '../containers/UserCarRadarContainer';
+import CompCarRadarContainer from '../containers/CompCarRadarContainer';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import CarInfoContainer from '../containers/CarInfoContainer';
+import CompCarInfoContainer from '../containers/CompCarInfoContainer';
 import { withStyles } from '@material-ui/core/styles';
 import CostBenefitPlotContainer from '../containers/CostBenefitPlotContainer';
 import TestDrivePlayerContainer from '../containers/TestDrivePlayerContainer';
@@ -72,6 +74,8 @@ class Viewspace extends React.Component {
                 <TestDrivePlayerContainer/> 
               </div>
             </div>}
+            {this.props.tabValueBottom === 1 && <TabContainer><CompCarInfoContainer /></TabContainer>}
+            {this.props.tabValueBottom === 2 && <TabContainer><CompCarRadarContainer /></TabContainer>}
         
       </Paper>
       </React.Fragment>

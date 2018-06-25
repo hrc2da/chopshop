@@ -4,8 +4,8 @@ import { setConfigVar, ENG_POWER } from '../actions/carConfig';
 //import { setConfigVar, clearConfigVar } from '../actions/carConfig';
 function mapStateToProps(state) {
   return {
-    config: state.carConfig,
-    readOnly: false
+    config: state.compCarConfig ? state.compCarConfig.config : {},
+    readOnly: true
   }
 }
 function mapDispatchToProps(dispatch,state){

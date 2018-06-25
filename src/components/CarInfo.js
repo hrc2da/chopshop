@@ -128,7 +128,10 @@ export const calculateCarWidth = (config)=>{
   return Math.abs(max-min);
 }
 
-let CarInfo = ({config,cost,handleSlider}) =>{
+let CarInfo = ({config,cost,handleSlider,readOnly}) =>{
+  if(!config){
+    return <div>No Car Selected</div>
+  }
   return <React.Fragment>
           <Table>
             <TableBody>
@@ -142,6 +145,7 @@ let CarInfo = ({config,cost,handleSlider}) =>{
                       min={15}
                       step={1}
                       value={config.wheel_rad}
+                      disabled = {readOnly}
                       onChange={(e,v)=>handleSlider(e,v,"WHEEL_RAD")}
                     />
                   </Tooltip>
@@ -157,6 +161,7 @@ let CarInfo = ({config,cost,handleSlider}) =>{
                       min={5}
                       step={1}
                       value={config.wheel_width}
+                      disabled={readOnly}
                       onChange={(e,v)=>handleSlider(e,v,"WHEEL_WIDTH")}
                     />
                   </Tooltip>
@@ -172,6 +177,7 @@ let CarInfo = ({config,cost,handleSlider}) =>{
                       min={1}
                       step={1}
                       value={Math.floor(config.friction_lim/1e2)}
+                      disabled={readOnly}
                       onChange={(e,v)=>handleSlider(e,v*1e2,"FRICTION_LIM")}
                     />
                   </Tooltip>
@@ -187,6 +193,7 @@ let CarInfo = ({config,cost,handleSlider}) =>{
                       min={10}
                       step={10}
                       value={Math.floor(config.eng_power/1e3)}
+                      disabled={readOnly}
                       onChange={(e,v)=>handleSlider(e,v*1e3,"ENG_POWER")}
                     />
                   </Tooltip>
