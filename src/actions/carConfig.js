@@ -30,12 +30,12 @@ export const setConfigVar = (type, value) =>{
         type: SET_WHEEL_WIDTH,
         value: value
       };
-    case DRIVETRAIN: 
+    case DRIVETRAIN:
       return {
         type: SET_DRIVETRAIN,
         value: value
       };
-    case FRICTION_LIM: 
+    case FRICTION_LIM:
       return {
         type: SET_FRICTION_LIM,
         value: value
@@ -68,17 +68,17 @@ export const removeConfigVar = (type, value) =>{
         type: CLEAR_WHEEL_SIZE,
         value: undefined
       };
-    case BODY: 
+    case BODY:
       return {
         type: CLEAR_BODY,
         value: undefined
       };
-    case DRIVETRAIN: 
+    case DRIVETRAIN:
       return {
         type: CLEAR_DRIVETRAIN,
         value: undefined
       };
-    case ENGINE: 
+    case ENGINE:
       return {
         type: CLEAR_ENGINE,
         value: undefined

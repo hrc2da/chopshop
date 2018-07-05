@@ -23,12 +23,12 @@ export const calculateCarCost = (config)=>{
 
 export const calculateBodyCost = (config)=>{
   //get the area of each hull and sum for now
-  let materialCost = 10; //cost per pixel of material  
+  let materialCost = 10; //cost per pixel of material
   //in the future, this will be a function^^
   return materialCost*calculateBodyWeight(config);
 }
 export const calculateTireCost = (config) =>{
-  //tire cost is based on the width, tread, and wheel radius 
+  //tire cost is based on the width, tread, and wheel radius
   return 8*(config.wheel_rad+config.wheel_width+config.friction_lim/2);
 }
 export const calculateWheelCost = (config)=>{
@@ -108,7 +108,7 @@ export const calculateCarLength = (config)=>{
   return Math.abs(tip-tail);
 }
 
-export const calculateCarWidth = (config)=>{
+export const calculateCarWidth = (config) => {
   let max=0;
   let hulls = [config.hull_poly1,config.hull_poly2,config.hull_poly3,config.hull_poly4];
   for(let hull in hulls){
@@ -128,7 +128,10 @@ export const calculateCarWidth = (config)=>{
   return Math.abs(max-min);
 }
 
-let CarInfo = ({config,cost,handleSlider,readOnly}) =>{
+let CarInfo = ({state,config,cost,handleSlider,readOnly}) =>{
+    console.log("HELLO PLEASE CHECK THE STATE BELOW: ")
+    console.log(state)
+
   if(!config){
     return <div>No Car Selected</div>
   }
@@ -183,7 +186,7 @@ let CarInfo = ({config,cost,handleSlider,readOnly}) =>{
                   </Tooltip>
                 </TableCell>
                </TableRow>
-<TableRow>
+               <TableRow>
                 <TableCell>Horsepower:</TableCell>
                 <TableCell>
                   <Tooltip title={Math.floor(config.eng_power/1e3)} placement="left" open={true}>

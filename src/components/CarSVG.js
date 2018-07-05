@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { clockwiseSort } from '../util/polygons'
 export const transform = (coords,xOffset,yOffset,scale=1.0,rotation=90)=>{
-  //for now, just rotate 90 degrees, but should make this 
+  //for now, just rotate 90 degrees, but should make this
   //return
   //coords.map(v=>[parseInt(scale*(Math.cos(theta)*v[0]-Math.sin(theta)*v[1]))+xOffset,
   //              parseInt(scale*(Math.sin(theta)*v[0]+Math.cos(theta)*v[1]))+yOffset])
@@ -61,8 +61,12 @@ class CarSVG extends Component{
     let wheel_coords = wheels ? wheels.map(w => this.wheelattrs2Coords(this.props.config.wheel_rad, this.props.config.wheel_width, w)) : [];
     let xOffset = this.props.width ? this.props.width/2 : undefined;
     let yOffset = this.props.height ? this.props.height/2 : undefined;
+    let carLength = this.props.carLength;
+    let carWidth = this.props.carWidth;
+    let bumperCoords = bumper ? clockwiseSort(transform(bumper,0,yOffset+30,2.0)) : undefined;
+    let hull1Coords = hull1 ? clockwiseSort(transform(hull1,xOffset+175,0,2.0)) : undefined;
 
-    let wheelPairs = []
+    let wheelPairs = [];
     if(wheels){
       let maxWheelPosY = wheels.reduce((a,w)=>Math.max(a,w[1]),0);
       let minWheelPosY = wheels.reduce((a,w)=>Math.min(a,w[1]),maxWheelPosY);
@@ -75,17 +79,25 @@ class CarSVG extends Component{
    return (
       <React.Fragment>
         //axles
-        {wheels && <line x1={wheelPairs[0][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[0][0][1]} 
-                    x2={wheelPairs[0][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[0][1][1]} 
+        {wheels && <line x1={wheelPairs[0][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[0][0][1]}
+                    x2={wheelPairs[0][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[0][1][1]}
                     strokeWidth={5} stroke={this.props.wheelColor}/>}
-        {wheels && <line x1={wheelPairs[1][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[1][0][1]} 
-                    x2={wheelPairs[1][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[1][1][1]} 
+        {wheels && <line x1={wheelPairs[1][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[1][0][1]}
+                    x2={wheelPairs[1][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[1][1][1]}
                     strokeWidth={5} stroke={this.props.wheelColor}/>}
         {bumper && this.coords2SVG(bumper,this.props.hullColor,this.props.config.hull_densities[0],xOffset,yOffset)}
         {hull1 && this.coords2SVG(hull1,this.props.hullColor,this.props.config.hull_densities[1],xOffset,yOffset)}
         {hull2 && this.coords2SVG(hull2,this.props.hullColor,this.props.config.hull_densities[2],xOffset,yOffset)}
         {spoiler && this.coords2SVG(spoiler,this.props.hullColor,this.props.config.hull_densities[3],xOffset,yOffset)}
-        {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.5+(0.25*this.props.config.friction_lim/1e3),xOffset,yOffset)) }
+        {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.5+(0.25*this.props.config.friction_lim/1e3),xOffset,yOffset))}
+
+        //ADDING MEASUREMENTS
+
+        //LENGTH
+        {hull1 && <text x={hull1Coords[0][0]} y={yOffset} fill="black">{carLength} m</text>}
+
+        //WIDTH
+        {bumper && <text x={xOffset-20} y={bumperCoords[0][1]} fill="black">{carWidth} m</text>}
       </React.Fragment>
       )
   }
