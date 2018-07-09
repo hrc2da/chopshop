@@ -129,9 +129,6 @@ export const calculateCarWidth = (config) => {
 }
 
 let CarInfo = ({state,config,cost,handleSlider,readOnly}) =>{
-    console.log("HELLO PLEASE CHECK THE STATE BELOW: ")
-    console.log(state)
-
   if(!config){
     return <div>No Car Selected</div>
   }
