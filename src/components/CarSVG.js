@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { clockwiseSort } from '../util/polygons'
 export const transform = (coords,xOffset,yOffset,scale=1.0,rotation=90)=>{
-  //for now, just rotate 90 degrees, but should make this 
+  //for now, just rotate 90 degrees, but should make this
   //return
   //coords.map(v=>[parseInt(scale*(Math.cos(theta)*v[0]-Math.sin(theta)*v[1]))+xOffset,
   //              parseInt(scale*(Math.sin(theta)*v[0]+Math.cos(theta)*v[1]))+yOffset])
@@ -52,6 +52,21 @@ class CarSVG extends Component{
     //console.log(pathStr);
     return <path d={pathStr} fill={fill} fillOpacity={parseFloat(density)/1.0}/>
   }
+  componentDidUpdate(prevProps) {
+      if (this.props.carWidth !== prevProps.carWidth) {
+          this.widthChanged = true;
+          setTimeout(() => {this.forceUpdate()}, 1 * 1000);
+      } else {
+          this.widthChanged = false;
+      }
+
+      if (this.props.carLength !== prevProps.carLength) {
+          this.lengthChanged = true;
+          setTimeout(() => {this.forceUpdate()}, 1 * 1000);
+      } else {
+          this.lengthChanged = false;
+      }
+  }
   render() {
     let bumper = this.props.config ? this.props.config.hull_poly1 : undefined;
     let hull1 = this.props.config ? this.props.config.hull_poly2 : undefined;
@@ -61,8 +76,13 @@ class CarSVG extends Component{
     let wheel_coords = wheels ? wheels.map(w => this.wheelattrs2Coords(this.props.config.wheel_rad, this.props.config.wheel_width, w)) : [];
     let xOffset = this.props.width ? this.props.width/2 : undefined;
     let yOffset = this.props.height ? this.props.height/2 : undefined;
+    let carLength = this.props.carLength;
+    let carWidth = this.props.carWidth;
+    let bumperCoords = bumper ? clockwiseSort(transform(bumper,0,yOffset+30,2.0)) : undefined;
+    let hull1Coords = hull1 ? clockwiseSort(transform(hull1,xOffset+175,0,2.0)) : undefined;
+    let SVGResult;
 
-    let wheelPairs = []
+    let wheelPairs = [];
     if(wheels){
       let maxWheelPosY = wheels.reduce((a,w)=>Math.max(a,w[1]),0);
       let minWheelPosY = wheels.reduce((a,w)=>Math.min(a,w[1]),maxWheelPosY);
@@ -72,22 +92,129 @@ class CarSVG extends Component{
       console.log("REAR PAIR", rearPair);
       wheelPairs = [frontPair,rearPair].map((pair)=>transform(pair,xOffset,yOffset,2.0));
     }
-   return (
-      <React.Fragment>
-        //axles
-        {wheels && <line x1={wheelPairs[0][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[0][0][1]} 
-                    x2={wheelPairs[0][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[0][1][1]} 
-                    strokeWidth={5} stroke={this.props.wheelColor}/>}
-        {wheels && <line x1={wheelPairs[1][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[1][0][1]} 
-                    x2={wheelPairs[1][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[1][1][1]} 
-                    strokeWidth={5} stroke={this.props.wheelColor}/>}
-        {bumper && this.coords2SVG(bumper,this.props.hullColor,this.props.config.hull_densities[0],xOffset,yOffset)}
-        {hull1 && this.coords2SVG(hull1,this.props.hullColor,this.props.config.hull_densities[1],xOffset,yOffset)}
-        {hull2 && this.coords2SVG(hull2,this.props.hullColor,this.props.config.hull_densities[2],xOffset,yOffset)}
-        {spoiler && this.coords2SVG(spoiler,this.props.hullColor,this.props.config.hull_densities[3],xOffset,yOffset)}
-        {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.5+(0.25*this.props.config.friction_lim/1e3),xOffset,yOffset)) }
-      </React.Fragment>
-      )
+
+    if (this.widthChanged && this.lengthChanged) {
+      SVGResult = (
+         <React.Fragment>
+           //axles
+           {wheels && <line x1={wheelPairs[0][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[0][0][1]}
+                       x2={wheelPairs[0][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[0][1][1]}
+                       strokeWidth={5} stroke={this.props.wheelColor}/>}
+           {wheels && <line x1={wheelPairs[1][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[1][0][1]}
+                       x2={wheelPairs[1][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[1][1][1]}
+                       strokeWidth={5} stroke={this.props.wheelColor}/>}
+           {bumper && this.coords2SVG(bumper,this.props.hullColor,this.props.config.hull_densities[0],xOffset,yOffset)}
+           {hull1 && this.coords2SVG(hull1,this.props.hullColor,this.props.config.hull_densities[1],xOffset,yOffset)}
+           {hull2 && this.coords2SVG(hull2,this.props.hullColor,this.props.config.hull_densities[2],xOffset,yOffset)}
+           {spoiler && this.coords2SVG(spoiler,this.props.hullColor,this.props.config.hull_densities[3],xOffset,yOffset)}
+           {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.5+(0.25*this.props.config.friction_lim/1e3),xOffset,yOffset))}
+
+           //ADDING MEASUREMENTS
+
+           //FILTER FOR TEXT SHADOW
+           <filter id="shadow" width="200%" height="200%">
+               <feGaussianBlur stdDeviation="3 3" result="shadow"/>
+           </filter>
+
+           //LENGTH
+           {hull1 && <text x={hull1Coords[1][0] - 75} y={yOffset} fill="black" style={{filter: `url(#shadow)`}}>{carLength} m</text>} //SHADOW OF LENGTH TEXT
+           {hull1 && <text x={hull1Coords[1][0] - 75} y={yOffset} fill="yellow">{carLength} m</text>} //ACTUAL LENGTH TEXT
+
+           //WIDTH
+           {bumper && <text x={xOffset-20} y={bumperCoords[0][1]} fill="black" style={{filter: `url(#shadow)`}}>{carWidth} m</text>} //SHADOW OF WIDTH TEXT
+           {bumper && <text x={xOffset-20} y={bumperCoords[0][1]} fill="yellow">{carWidth} m</text>} //ACTUAL WIDTH TEXT
+         </React.Fragment>
+     )
+ } else if (this.lengthChanged) {
+     SVGResult = (
+        <React.Fragment>
+          //axles
+          {wheels && <line x1={wheelPairs[0][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[0][0][1]}
+                      x2={wheelPairs[0][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[0][1][1]}
+                      strokeWidth={5} stroke={this.props.wheelColor}/>}
+          {wheels && <line x1={wheelPairs[1][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[1][0][1]}
+                      x2={wheelPairs[1][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[1][1][1]}
+                      strokeWidth={5} stroke={this.props.wheelColor}/>}
+          {bumper && this.coords2SVG(bumper,this.props.hullColor,this.props.config.hull_densities[0],xOffset,yOffset)}
+          {hull1 && this.coords2SVG(hull1,this.props.hullColor,this.props.config.hull_densities[1],xOffset,yOffset)}
+          {hull2 && this.coords2SVG(hull2,this.props.hullColor,this.props.config.hull_densities[2],xOffset,yOffset)}
+          {spoiler && this.coords2SVG(spoiler,this.props.hullColor,this.props.config.hull_densities[3],xOffset,yOffset)}
+          {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.5+(0.25*this.props.config.friction_lim/1e3),xOffset,yOffset))}
+
+          //ADDING MEASUREMENTS
+
+          //FILTER FOR TEXT SHADOW
+          <filter id="shadow" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3 3" result="shadow"/>
+          </filter>
+
+          //LENGTH
+          {hull1 && <text x={hull1Coords[1][0] - 75} y={yOffset} fill="black" style={{filter: `url(#shadow)`}}>{carLength} m</text>} //SHADOW OF LENGTH TEXT
+          {hull1 && <text x={hull1Coords[1][0] - 75} y={yOffset} fill="yellow">{carLength} m</text>} //ACTUAL LENGTH TEXT
+
+          //WIDTH
+          {bumper && <text x={xOffset-20} y={bumperCoords[0][1]} fill="black">{carWidth} m</text>}
+        </React.Fragment>
+    )
+ } else if (this.widthChanged) {
+     SVGResult = (
+        <React.Fragment>
+          //axles
+          {wheels && <line x1={wheelPairs[0][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[0][0][1]}
+                      x2={wheelPairs[0][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[0][1][1]}
+                      strokeWidth={5} stroke={this.props.wheelColor}/>}
+          {wheels && <line x1={wheelPairs[1][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[1][0][1]}
+                      x2={wheelPairs[1][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[1][1][1]}
+                      strokeWidth={5} stroke={this.props.wheelColor}/>}
+          {bumper && this.coords2SVG(bumper,this.props.hullColor,this.props.config.hull_densities[0],xOffset,yOffset)}
+          {hull1 && this.coords2SVG(hull1,this.props.hullColor,this.props.config.hull_densities[1],xOffset,yOffset)}
+          {hull2 && this.coords2SVG(hull2,this.props.hullColor,this.props.config.hull_densities[2],xOffset,yOffset)}
+          {spoiler && this.coords2SVG(spoiler,this.props.hullColor,this.props.config.hull_densities[3],xOffset,yOffset)}
+          {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.5+(0.25*this.props.config.friction_lim/1e3),xOffset,yOffset))}
+
+          //ADDING MEASUREMENTS
+
+          //FILTER FOR TEXT SHADOW
+          <filter id="shadow" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3 3" result="shadow"/>
+          </filter>
+
+          //LENGTH
+          {hull1 && <text x={hull1Coords[1][0] - 75} y={yOffset} fill="black">{carLength} m</text>}
+
+          //WIDTH
+          {bumper && <text x={xOffset-20} y={bumperCoords[0][1]} fill="black" style={{filter: `url(#shadow)`}}>{carWidth} m</text>} //SHADOW OF WIDTH TEXT
+          {bumper && <text x={xOffset-20} y={bumperCoords[0][1]} fill="yellow">{carWidth} m</text>} //ACTUAL WIDTH TEXT
+        </React.Fragment>
+     )
+ } else {
+        SVGResult = (
+           <React.Fragment>
+             //axles
+             {wheels && <line x1={wheelPairs[0][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[0][0][1]}
+                         x2={wheelPairs[0][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[0][1][1]}
+                         strokeWidth={5} stroke={this.props.wheelColor}/>}
+             {wheels && <line x1={wheelPairs[1][0][0]+this.props.config.wheel_width/2} y1={wheelPairs[1][0][1]}
+                         x2={wheelPairs[1][1][0]-this.props.config.wheel_width/2} y2={wheelPairs[1][1][1]}
+                         strokeWidth={5} stroke={this.props.wheelColor}/>}
+             {bumper && this.coords2SVG(bumper,this.props.hullColor,this.props.config.hull_densities[0],xOffset,yOffset)}
+             {hull1 && this.coords2SVG(hull1,this.props.hullColor,this.props.config.hull_densities[1],xOffset,yOffset)}
+             {hull2 && this.coords2SVG(hull2,this.props.hullColor,this.props.config.hull_densities[2],xOffset,yOffset)}
+             {spoiler && this.coords2SVG(spoiler,this.props.hullColor,this.props.config.hull_densities[3],xOffset,yOffset)}
+             {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.5+(0.25*this.props.config.friction_lim/1e3),xOffset,yOffset))}
+
+             //ADDING MEASUREMENTS
+
+             //LENGTH
+             {hull1 && <text x={hull1Coords[1][0] - 75} y={yOffset} fill="black">{carLength} m</text>}
+
+             //WIDTH
+             {bumper && <text x={xOffset-20} y={bumperCoords[0][1]} fill="black">{carWidth} m</text>}
+           </React.Fragment>
+       )
+    }
+
+    return SVGResult
   }
 }
 
