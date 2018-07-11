@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import CarRadar from '../components/CarRadar.js';
-import {calculateCarWeight,calculateCarCost} from '../components/CarInfo';
+import {calculateCarWeight,calculateCarCost} from '../util/carActions';
 
 function mapStateToProps(state){
     let reward = 0;

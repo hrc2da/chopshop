@@ -1,7 +1,7 @@
 import { ScatterPlot,ResponsiveScatterPlot } from '@nivo/scatterplot';
 import { Scatter } from 'react-chartjs-2';
 import React from 'react';
-import {calculateCarCost} from './CarInfo';
+import {calculateCarCost} from '../util/carActions';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/Table';
 import TableCell from '@material-ui/core/TableCell';
@@ -21,7 +21,7 @@ let CostBenefitPlot = ({testedCars,gaCars,handleSelectCompCar,handleClearCompCar
   console.log("CARS",testedCars);
   let cars = [];
   let labels = [];
-  
+
   if(gaCars.length>0){
     cars.push({
       label: 'Computer-Generated Cars',
@@ -38,7 +38,7 @@ let CostBenefitPlot = ({testedCars,gaCars,handleSelectCompCar,handleClearCompCar
     });
     labels.push('Computer-Generated Cars');
   }
- 
+
   if(testedCars.length>0){
     cars.push({
       label: 'My Cars',
@@ -65,7 +65,7 @@ let CostBenefitPlot = ({testedCars,gaCars,handleSelectCompCar,handleClearCompCar
   }
   console.log(cars);
   return <div>
-  <Scatter 
+  <Scatter
     data={data}
     getElementAtEvent={(e)=>{
       //assume it's only one element (I think that's why this is singular?)
@@ -95,12 +95,12 @@ let CostBenefitPlot = ({testedCars,gaCars,handleSelectCompCar,handleClearCompCar
               display:true,
               labelString: 'Total Cost'
             }
-        }], 
+        }],
       }
     }
   }
   />
-</div> 
+</div>
 };
   /*return <React.Fragment>
     <div height={450}>
@@ -132,7 +132,7 @@ let CostBenefitPlot = ({testedCars,gaCars,handleSelectCompCar,handleClearCompCar
     tickRotation: 0,
     legend: "weight",
     legendPostion: "left",
-    legendOffset:-5 
+    legendOffset:-5
   }}
   data={cars}
   legends={[{
