@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import CarSVG from '../components/CarSVG';
-import { calculateCarLength, calculateCarWidth } from '../components/CarInfo'
+import { calculateCarLength, calculateCarWidth } from '../util/carActions'
 //import { setConfigVar, clearConfigVar } from '../actions/carConfig';
 
 function mapStateToProps(state) {

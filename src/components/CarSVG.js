@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { clockwiseSort } from '../util/polygons'
+import { clockwiseSort } from '../util/polygons';
+import { calculateCarLength, calculateCarWidth } from '../util/carActions'
 export const transform = (coords,xOffset,yOffset,scale=1.0,rotation=90)=>{
   //for now, just rotate 90 degrees, but should make this
   //return
