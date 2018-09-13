@@ -155,6 +155,7 @@ class CarSVG extends Component{
 
           //WIDTH
           {bumper && <text x={xOffset-20} y={bumperCoords[0][1]} fill="black">{carWidth} m</text>}
+    }
         </React.Fragment>
     )
  } else if (this.widthChanged) {

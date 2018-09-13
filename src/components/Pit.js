@@ -17,8 +17,8 @@ class Pit extends Component{
       }
     }
     console.log("THIS MANY REFS:",this.vertexRefs.length);
-   } 
-   
+   }
+
   render () {
     console.log(this.polyhulls);
     let w = this.props.width ? this.props.width : 600
@@ -28,7 +28,7 @@ class Pit extends Component{
     let tlbY =  0.05*h;
     let tlbPoints = [tlbX,tlbY+bl,tlbX,tlbY,tlbX+bl,tlbY]
 
-    let trbX = 0.95*w; 
+    let trbX = 0.95*w;
     let trbY = 0.05*h;
     let trbPoints = [trbX-bl,trbY,trbX,trbY,trbX,trbY+bl]
 
@@ -36,14 +36,31 @@ class Pit extends Component{
     let blbY =  0.95*h;
     let blbPoints = [blbX,blbY-bl,blbX,blbY,blbX+bl,blbY]
 
-    let brbX = 0.95*w; 
+    let brbX = 0.95*w;
     let brbY = 0.95*h;
     let brbPoints = [brbX,brbY-bl,brbX,brbY,brbX-bl,brbY]
+    let smallBlockHeight = 33;
+    let smallBlockWidth = smallBlockHeight;
+    let bigBlockHeight = 99;
+    let bigBlockWidth = bigBlockHeight;
 	return <React.Fragment>
-          <rect fill="gray" width={this.props.width ? this.props.width : 600} height={this.props.height ? this.props.height : 400}/>
-          {/*<rect 
-            fill="none" 
-            width = {this.props.width ? 0.9*this.props.width : 0.9*600} 
+          //ADDING BACKGROUND GRID
+          <defs> //DEFINITIONS FOR THE DIFFERENT GRID SIZES
+              <pattern id="smallGrid" width={smallBlockWidth} height={smallBlockHeight} patternUnits="userSpaceOnUse">
+                  <path d={"M " + smallBlockWidth + " 0 L 0 0 0 " + smallBlockHeight} fill="none" stroke="gray" stroke-width="0.5"/>
+              </pattern>
+
+              <pattern id="grid" width={bigBlockWidth} height={bigBlockHeight} patternUnits="userSpaceOnUse">
+                  <rect width={bigBlockWidth} height={bigBlockHeight} fill="url(#smallGrid)"/>
+                  <path d={"M " + bigBlockWidth + " 0 L 0 0 0 " + bigBlockHeight} fill="none" stroke="gray" stroke-width="1"/>
+              </pattern>
+          </defs>
+
+          <rect fill="url(#grid)" width={this.props.width ? this.props.width : 600} height={this.props.height ? this.props.height : 400} />
+
+          {/*<rect
+            fill="none"
+            width = {this.props.width ? 0.9*this.props.width : 0.9*600}
             height={this.props.height ? 0.9*this.props.height : 0.9*400}
             stroke="gold"
             strokeDasharray="100 5"
@@ -51,28 +68,28 @@ class Pit extends Component{
             x={this.props.width ? 0.05*this.props.width : 0.05*600}
             y={this.props.height ? 0.05*this.props.height : 0.05*400}
           />*/}
-          <polyline 
+          <polyline
             points={String(tlbPoints)}
             stroke="gold"
             strokeWidth={30}
             strokeLinejoin="bevel"
             fill="black"
           />
-          <polyline 
+          <polyline
             points={String(trbPoints)}
             stroke="gold"
             strokeWidth={30}
             strokeLinejoin="bevel"
             fill="black"
           />
-          <polyline 
+          <polyline
             points={String(blbPoints)}
             stroke="gold"
             strokeWidth={30}
             strokeLinejoin="bevel"
             fill="black"
           />
-          <polyline 
+          <polyline
             points={String(brbPoints)}
             stroke="gold"
             strokeWidth={30}
@@ -80,7 +97,7 @@ class Pit extends Component{
             fill="black"
           />
 
-          {/*<line 
+          {/*<line
             x1={this.props.width ? 0.05*this.props.width : 0.05*600}
             y1={this.props.height ? 0.05*this.props.height : 0.05*400}
             x2={this.props.width ? 0.05*this.props.width : 0.05*600}
@@ -91,7 +108,7 @@ class Pit extends Component{
                             +String(this.props.height?0.9*this.props.height/2:0.9*400/2)}
             strokeLinejoin="bevel"
           />
-          <line 
+          <line
             x1={this.props.width ? 0.05*this.props.width : 0.05*600}
             y1={this.props.height ? 0.05*this.props.height : 0.05*400}
             x2={this.props.width ? 0.95*this.props.width : 0.95*600}
@@ -102,7 +119,7 @@ class Pit extends Component{
                             +String(this.props.width?0.9*this.props.width/2:0.9*400/2)}
             strokeLinejoin="bevel"
           />
-          <line 
+          <line
             x1={this.props.width ? 0.95*this.props.width : 0.95*600}
             y1={this.props.height ? 0.05*this.props.height : 0.05*400}
             x2={this.props.width ? 0.95*this.props.width : 0.95*600}
@@ -117,9 +134,9 @@ class Pit extends Component{
           <CompCarContainer />
           {this.polyhulls.map((p,i)=>p.map((v,j)=>{
             console.log(0+this.polyhulls.slice(0,i).reduce((a,p)=>a+p.length,0));
-            return <VertexContainer 
+            return <VertexContainer
             ref={this.vertexRefs[j+this.polyhulls.slice(0,i).reduce((a,p)=>a+p.length,0)]} //indexing over jagged array
-            polygon={"hull_poly"+String(i+1)} 
+            polygon={"hull_poly"+String(i+1)}
             index={j} />
           }))}
     </React.Fragment>
