@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import UserCarContainer from '../containers/UserCarContainer';
 import VertexContainer from '../containers/VertexContainer';
 import CompCarContainer from '../containers/CompCarContainer';
+import { calculateCarWeight, calculateCarCost } from '../util/carActions';
+
 class Pit extends Component{
   constructor(props) {
      super(props);
@@ -21,8 +23,15 @@ class Pit extends Component{
 
   render () {
     console.log(this.polyhulls);
-    let w = this.props.width ? this.props.width : 600
-    let h = this.props.height ? this.props.height :400
+
+    // 4 increments of 48936 from $7312
+    let cost = Math.floor(calculateCarCost(this.props.config));
+    // 4 increments of 2249kg from 295kg
+    let weight = calculateCarWeight(this.props.config)/5e3;
+
+    let w = this.props.width ? this.props.width : 600;
+    let h = this.props.height ? this.props.height : 400;
+
     let bl = 0.15*Math.min(w,h);
     let tlbX = 0.05*w;
     let tlbY =  0.05*h;
@@ -43,9 +52,33 @@ class Pit extends Component{
     let smallBlockWidth = smallBlockHeight;
     let bigBlockHeight = 99;
     let bigBlockWidth = bigBlockHeight;
+
+    // BELOW CAR
+    // let arrowPoints = [
+    //     w/2 - 100, h/2 - 200,
+    //     w/2 + 100, h/2 - 200,
+    //     w/2 + 100, h/2,
+    //     w/2 + 150, h/2,
+    //     w/2, h/2 + 210, // POINT
+    //     w/2 - 150, h/2,
+    //     w/2 - 100, h/2
+    // ]
+
+    // IN FRONT OF CAR
+    let arrowPoints = [
+        w/2 - 10, brbY - 50,
+        w/2 + 10, brbY - 50,
+        w/2 + 10, brbY - 20,
+        w/2 + 25, brbY - 20,
+        w/2, brbY + 10, // POINT
+        w/2 - 25, brbY - 20,
+        w/2 - 10, brbY - 20
+    ]
+
 	return <React.Fragment>
-          //ADDING BACKGROUND GRID
-          <defs> //DEFINITIONS FOR THE DIFFERENT GRID SIZES
+          // ADDING BACKGROUND GRID
+          <defs>
+              // DEFINITIONS FOR THE DIFFERENT GRID SIZES
               <pattern id="smallGrid" width={smallBlockWidth} height={smallBlockHeight} patternUnits="userSpaceOnUse">
                   <path d={"M " + smallBlockWidth + " 0 L 0 0 0 " + smallBlockHeight} fill="none" stroke="gray" stroke-width="0.5"/>
               </pattern>
@@ -56,7 +89,7 @@ class Pit extends Component{
               </pattern>
           </defs>
 
-          <rect fill="url(#grid)" width={this.props.width ? this.props.width : 600} height={this.props.height ? this.props.height : 400} />
+          <rect fill="url(#grid)" width={w} height={h} />
 
           {/*<rect
             fill="none"
@@ -68,6 +101,7 @@ class Pit extends Component{
             x={this.props.width ? 0.05*this.props.width : 0.05*600}
             y={this.props.height ? 0.05*this.props.height : 0.05*400}
           />*/}
+
           <polyline
             points={String(tlbPoints)}
             stroke="gold"
@@ -96,6 +130,20 @@ class Pit extends Component{
             strokeLinejoin="bevel"
             fill="black"
           />
+
+          // ARROW
+          <polygon
+            points={String(arrowPoints)}
+            stroke="black"
+            strokeWidth={30}
+            strokeLinejoin="arcs" // round
+            fill="black"
+            opacity="0.50"
+          />
+
+          // COST
+          <image xlinkHref="https://image.freepik.com/vetores-gratis/cash-money-icon-design_1692-64.jpg" x={180} y={brbY-40} width={80} />
+
 
           {/*<line
             x1={this.props.width ? 0.05*this.props.width : 0.05*600}
