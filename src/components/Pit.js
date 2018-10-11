@@ -24,10 +24,13 @@ class Pit extends Component{
   render () {
     console.log(this.polyhulls);
 
-    // 4 increments of 48936 from $7312
+    // 4 increments of 48936 from $7312 to $203056
     let cost = Math.floor(calculateCarCost(this.props.config));
+    let costIncrements = Math.round((cost - 7312) / 48936);
     // 4 increments of 2249kg from 295kg
+    // 4 increments of 0.548 from 0.19425 to 2.38625
     let weight = calculateCarWeight(this.props.config)/5e3;
+    let weightIncrements = Math.round((weight - 0.19425) / 0.548);
 
     let w = this.props.width ? this.props.width : 600;
     let h = this.props.height ? this.props.height : 400;
@@ -53,17 +56,6 @@ class Pit extends Component{
     let bigBlockHeight = 99;
     let bigBlockWidth = bigBlockHeight;
 
-    // BELOW CAR
-    // let arrowPoints = [
-    //     w/2 - 100, h/2 - 200,
-    //     w/2 + 100, h/2 - 200,
-    //     w/2 + 100, h/2,
-    //     w/2 + 150, h/2,
-    //     w/2, h/2 + 210, // POINT
-    //     w/2 - 150, h/2,
-    //     w/2 - 100, h/2
-    // ]
-
     // IN FRONT OF CAR
     let arrowPoints = [
         w/2 - 10, brbY - 50,
@@ -73,7 +65,15 @@ class Pit extends Component{
         w/2, brbY + 10, // POINT
         w/2 - 25, brbY - 20,
         w/2 - 10, brbY - 20
-    ]
+    ];
+
+    // COST
+    let costX = 180;
+    let costY = brbY-5;
+    let costStacks = [];
+    for (let i = 0; i < costIncrements; i++) {
+        costStacks.push(i);
+    }
 
 	return <React.Fragment>
           // ADDING BACKGROUND GRID
@@ -142,8 +142,9 @@ class Pit extends Component{
           />
 
           // COST
-          <image xlinkHref="https://image.freepik.com/vetores-gratis/cash-money-icon-design_1692-64.jpg" x={180} y={brbY-40} width={80} />
-
+          {costStacks.map((val, index) => {
+              return <image xlinkHref="https://i.imgur.com/7AEGspP.png" x={costX} y={costY - (index * 25)} width={80} />
+          })}
 
           {/*<line
             x1={this.props.width ? 0.05*this.props.width : 0.05*600}
