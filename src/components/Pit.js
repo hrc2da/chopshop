@@ -75,6 +75,14 @@ class Pit extends Component{
         costStacks.push(i);
     }
 
+    // WEIGHT
+    let weightWidth = 90;
+    let weightHeight = 10;
+    let weightBaseX = w / 2 + 130;
+    let weightBaseY = costY + 27;
+    let weightTopX = weightBaseX;
+    let weightTopY = weightBaseY - 88 + (weightIncrements * 20);
+
 	return <React.Fragment>
           // ADDING BACKGROUND GRID
           <defs>
@@ -136,10 +144,23 @@ class Pit extends Component{
             points={String(arrowPoints)}
             stroke="black"
             strokeWidth={30}
-            strokeLinejoin="arcs" // round
+            strokeLinejoin="arcs"
             fill="black"
             opacity="0.50"
           />
+
+          // WEIGHT
+          <rect x={weightTopX} y={weightTopY} width={weightWidth} height={weightHeight} fill="#003366"/> // TOP RECT
+
+          // WIRE 1
+          <line x1={weightTopX} y1={weightTopY+weightHeight} x2={weightBaseX + weightWidth} y2={weightBaseY - (weightBaseY - weightTopY) / 2} stroke="black" strokeWidth="2" />
+          <line x1={weightBaseX + weightWidth} y1={weightBaseY - (weightBaseY - weightTopY) / 2} x2={weightBaseX} y2={weightBaseY} stroke="black" strokeWidth="2" />
+
+          // WIRE 2
+          <line x1={weightTopX + weightWidth} y1={weightTopY+weightHeight} x2={weightBaseX} y2={weightBaseY - (weightBaseY - weightTopY) / 2} stroke="black" strokeWidth="2" />
+          <line x1={weightBaseX} y1={weightBaseY - (weightBaseY - weightTopY) / 2} x2={weightBaseX + weightWidth} y2={weightBaseY} stroke="black" strokeWidth="2"/>
+
+          <rect x={weightBaseX} y={weightBaseY} width={weightWidth} height={weightHeight} fill="#003366"/> // BOTTOM RECT
 
           // COST
           {costStacks.map((val, index) => {
