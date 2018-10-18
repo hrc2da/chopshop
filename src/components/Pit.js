@@ -100,7 +100,7 @@ class Pit extends Component{
           <rect fill="url(#grid)" width={w} height={h} />
 
           // OIL SPILL
-          <image xlinkHref="https://i.imgur.com/ZRpYn7w.png" x={w/2+100} y={h/2-240} width={300} />
+          <image xlinkHref="https://i.imgur.com/ZRpYn7w.png" x={w/2+100} y={h/2-240} width={300} opacity={0.8} />
 
           {/*<rect
             fill="none"
