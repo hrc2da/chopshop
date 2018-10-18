@@ -99,6 +99,9 @@ class Pit extends Component{
 
           <rect fill="url(#grid)" width={w} height={h} />
 
+          // OIL SPILL
+          <image xlinkHref="https://i.imgur.com/ZRpYn7w.png" x={w/2+100} y={h/2-240} width={300} />
+
           {/*<rect
             fill="none"
             width = {this.props.width ? 0.9*this.props.width : 0.9*600}
