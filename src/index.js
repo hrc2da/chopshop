@@ -12,8 +12,8 @@ import createSocketIoMiddleware from 'redux-socket.io';
 import io from 'socket.io-client'
 import thunkMiddleware from 'redux-thunk';
 
-//let socket = io('http://racecar.space:5000');
-//let socketIoMiddleware = createSocketIoMiddleware(socket, "ga/");
+let socket = io('http://localhost:5000');
+let socketIoMiddleware = createSocketIoMiddleware(socket, "ga/");
 let loggerMiddleware = createLogger();
 
 function socketReducer(state = {}, action){
@@ -25,11 +25,11 @@ function socketReducer(state = {}, action){
           }
 }
 let sess = '';
-//socket.on('session_id', function(sess_id) {
-//                   sess = sess_id;
-//                  socket.emit('start_ga', sess);
-//                  console.log(sess);
-//              });
+socket.on('session_id', function(sess_id) {
+                  sess = sess_id;
+                  socket.emit('start_ga', sess);
+                 console.log(sess);
+             });
 
 function configureStore(preloadedState) {
 	return createStore(
@@ -38,20 +38,20 @@ function configureStore(preloadedState) {
 		applyMiddleware(
 			loggerMiddleware,
       thunkMiddleware,
-      //socketIoMiddleware
+      socketIoMiddleware
 		)
 	);
 }
 let store = configureStore(initState);
 store.dispatch({type:'ga/hello', data:'Hello!'});
-//socket.on('ga_car', function(data){
-//                  console.log("got",data.session_id,"saved",sess);
-//                  if(data.session_id==sess){
-//                                        console.log("recieved:",data);
-//                      store.dispatch({type:'ADD_GA_CAR', newCar:data.car});
-//                                    }
-//                  //only listen if the car is tagged with your id
-//            });
+socket.on('ga_car', function(data){
+                 console.log("got",data.session_id,"saved",sess);
+                 if(data.session_id==sess){
+                                       console.log("recieved:",data);
+                     store.dispatch({type:'ADD_GA_CAR', newCar:data.car});
+                                   }
+                 //only listen if the car is tagged with your id
+           });
 
 
 ReactDOM.render(

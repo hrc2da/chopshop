@@ -6,9 +6,9 @@ let defaultState = {
     workspaceHeight: 800,
     workspaceWidth: 1000
   },
-  carRacingUrl: "http://racecar.space:5000/",
-  carRacingStaticUrl: "http://racecar.space:5000/static/",
-  carRacingApiUrl: "http://racecar.space:5000/",
+  carRacingUrl: "http://localhost:5000/",
+  carRacingStaticUrl: "http://localhost:5000/static/",
+  carRacingApiUrl: "http://localhost:5000/",
   testDriveVideo: "c2e700ac376f4ee18a68c59a9b6ce5d9.mp4",
   carConfig: {
                hull_poly1: [[-60, 130], [60, 130], [60, 110], [-60, 110]],
