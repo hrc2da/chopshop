@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Workspace from '../components/Workspace';
-import { testDrive } from '../actions/testDrive';
+import { testDrive} from '../actions/testDrive';
 function mapStateToProps(state){
 	return {
 		height: state.dimensions.workspaceHeight,
@@ -14,7 +14,11 @@ function mapDispatchToProps(dispatch){
   return {
     handleTestDrive: (e)=>{
       dispatch(testDrive());
+    },
+    handleTrainDriver: (e)=>{
+      dispatch(testDrive({},true));
     }
+  
   }
 }
 

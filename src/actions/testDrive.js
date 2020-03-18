@@ -25,7 +25,7 @@ export const addTestedCar = (config,result,video) =>{
 };
 
 
-const callTestDrive = (carConfig,apiUrl) =>{
+const callTestDrive = (carConfig,apiUrl,train=false) =>{
   let queryOptions = {
     method: "POST",
     mode: "cors",
@@ -33,22 +33,34 @@ const callTestDrive = (carConfig,apiUrl) =>{
     headers: {"content-type": "application/json"},
     body: JSON.stringify(carConfig)
   }
+  let requestUri = '';
+  if(train==true){
+    requestUri = apiUrl + "traindriver";
+  }
+  else{
+    requestUri = apiUrl + "testdrive";
+  }
   return dispatch => {
     dispatch(initTestDrive(carConfig)); //signal that you're initiating test drive
-    return fetch(apiUrl+"testdrive",queryOptions)
+    return fetch(requestUri,queryOptions)
     .then(response => {
       let responseObj = response.json();
       return responseObj;
     })
     .then(json => {
       dispatch(setTestDriveVideo(json.video)); //set the video
-      dispatch(addTestedCar(carConfig,json.result,json.video)); //add the results
-      dispatch(setTab(TAB_TOP,TEST_DRIVE_TAB));
+      //if(train==True){ //I'm not sure if this is right. what would be most useful?
+        dispatch(addTestedCar(carConfig,json.result,json.video)); //add the results
+        dispatch(setTab(TAB_TOP,TEST_DRIVE_TAB));
+      //}
     });
   };
 };
-export const testDrive = (carConfig = {}) =>{
+
+
+
+export const testDrive = (carConfig = {}, train=false) =>{
   return (dispatch, getState) => {
-    return dispatch(callTestDrive(getState().carConfig, getState().carRacingApiUrl));
+    return dispatch(callTestDrive(getState().carConfig, getState().carRacingApiUrl,train));
   }
 };

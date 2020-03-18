@@ -32,8 +32,9 @@ class  Workspace extends Component{
       {/*<Typography variant="title" className={classes.flex}>
 					Build Your Car
 				</Typography>*/}
-        <Button className={classes.button} disabled = {this.props.loading} variant="raised" color="primary" onClick = {this.props.handleTestDrive}>Test Drive</Button>
-      </AppBar>
+        <Button className={classes.button} disabled = {this.props.loading} variant="raised" color="primary" onClick = {this.props.handleTrainDriver}>Train Driver</Button>
+	<Button className={classes.button} disabled = {this.props.loading} variant="raised" color="secondary" onClick = {this.props.handleTestDrive}>Test Drive</Button>
+	</AppBar>
 				<svg width = {this.props.width} height = {this.props.height} onMouseUp = {(e)=>{ console.log(this.pitRef.current.vertexRefs);
                                                                                         let vertexRefs = this.pitRef.current.vertexRefs;
                                                                                           for(let i=0; i<vertexRefs.length; i++){
