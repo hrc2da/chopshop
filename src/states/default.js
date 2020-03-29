@@ -10,6 +10,7 @@ let defaultState = {
   carRacingStaticUrl: "http://localhost:5000/static/",
   carRacingApiUrl: "http://localhost:5000/",
   testDriveVideo: "c2e700ac376f4ee18a68c59a9b6ce5d9.mp4",
+  numEpisodes: 1,
   carConfig: {
                hull_poly1: [[-60, 130], [60, 130], [60, 110], [-60, 110]],
                hull_poly2: [[-15, 120], [15, 120], [20, 20], [-20, 20]],

@@ -3,6 +3,8 @@ import {setTab,TAB_TOP, TEST_DRIVE_TAB} from './tabs';
 export const SET_TEST_DRIVE_VIDEO = 'SET_TEST_DRIVE_VIDEO';
 export const INIT_TEST_DRIVE = 'INIT_TEST_DRIVE';
 export const ADD_TESTED_CAR = 'ADD_TESTED_CAR';
+export const SET_NUM_EPISODES = 'SET_NUM_EPISODES'
+
 export const initTestDrive = (config) =>{
   return {
     type: INIT_TEST_DRIVE,
@@ -25,21 +27,15 @@ export const addTestedCar = (config,result,video) =>{
 };
 
 
-const callTestDrive = (carConfig,apiUrl,train=false) =>{
+const callTestDrive = (carConfig,apiUrl,numEpisodes) =>{
   let queryOptions = {
     method: "POST",
     mode: "cors",
     cache: 'no-cache',
     headers: {"content-type": "application/json"},
-    body: JSON.stringify(carConfig)
+    body: JSON.stringify({'config':carConfig, 'numEpisodes':numEpisodes})
   }
-  let requestUri = '';
-  if(train==true){
-    requestUri = apiUrl + "traindriver";
-  }
-  else{
-    requestUri = apiUrl + "testdrive";
-  }
+  let requestUri = apiUrl + "testdrive";
   return dispatch => {
     dispatch(initTestDrive(carConfig)); //signal that you're initiating test drive
     return fetch(requestUri,queryOptions)
@@ -59,8 +55,20 @@ const callTestDrive = (carConfig,apiUrl,train=false) =>{
 
 
 
-export const testDrive = (carConfig = {}, train=false) =>{
+export const testDrive = (carConfig = {}, train=true) =>{
+  let numEpisodes = 0;
+  
   return (dispatch, getState) => {
-    return dispatch(callTestDrive(getState().carConfig, getState().carRacingApiUrl,train));
+    if(train==true){
+      numEpisodes = getState().numEpisodes
+    }
+    return dispatch(callTestDrive(getState().carConfig, getState().carRacingApiUrl,numEpisodes));
   }
 };
+
+export const setNumEpisodes = (value) =>{
+  return {
+    type: SET_NUM_EPISODES,
+    value: value
+  };
+}
