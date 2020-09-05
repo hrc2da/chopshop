@@ -24,7 +24,8 @@ let defaultState = {
                wheel_rad: 27,
                wheel_moment: 1.6,
                drive_train: [0, 0, 1, 1],
-               friction_lim: 400
+               friction_lim: 400,
+               color: 10
   },
   testedCars: [],
   gaCars: [{
@@ -41,7 +42,8 @@ let defaultState = {
                  wheel_rad: 27,
                  wheel_moment: 1.6,
                  drive_train: [0, 0, 1, 1],
-                 friction_lim: 400
+                 friction_lim: 400,
+                 color: 10
     },
     result: [248.0954887218055,20053.333333333332,4.0],
     video: "e27e16edbeee48e1a381bbda653d11b7.mp4"

@@ -1,3 +1,4 @@
+export const COLOR = 'COLOR';
 export const WHEEL_SIZE = 'WHEEL_SIZE';
 export const BODY = 'BODY';
 export const DRIVETRAIN = 'DRIVETRAIN';
@@ -9,6 +10,7 @@ export const FRICTION_LIM='FRICTION_LIM';
 export const HULL_VERTEX='HULL_VERTEX';
 
 
+const SET_COLOR= 'SET_COLOR';
 const SET_ENG_POWER = 'SET_ENG_POWER';
 const SET_WHEEL_RAD = 'SET_WHEEL_RAD';
 const SET_WHEEL_WIDTH='SET_WHEEL_WIDTH';
@@ -16,6 +18,7 @@ const SET_FRICTION_LIM='SET_FRICTION_LIM';
 const SET_BODY = 'SET_BODY';
 const SET_DRIVETRAIN = 'SET_DRIVETRAIN';
 const SET_ENGINE = 'SET_ENGINE';
+const CLEAR_COLOR = 'CLEAR_COLOR';
 const CLEAR_WHEEL_SIZE = 'CLEAR_WHEEL_SIZE';
 const CLEAR_BODY = 'CLEAR_BODY';
 const CLEAR_DRIVETRAIN = 'CLEAR_DRIVETRAIN';
@@ -25,6 +28,11 @@ const SET_HULL_VERTEX = 'SET_HULL_VERTEX';
 
 export const setConfigVar = (type, value) =>{
   switch (type) {
+    case COLOR:
+      return {
+        type: SET_COLOR,
+        value: value
+      }
     case WHEEL_WIDTH:
       return {
         type: SET_WHEEL_WIDTH,
@@ -63,6 +71,11 @@ export const setConfigVar = (type, value) =>{
 };
 export const removeConfigVar = (type, value) =>{
   switch (type) {
+    case COLOR:
+      return {
+        type: CLEAR_COLOR,
+        value: undefined
+      }
     case WHEEL_SIZE:
       return {
         type: CLEAR_WHEEL_SIZE,

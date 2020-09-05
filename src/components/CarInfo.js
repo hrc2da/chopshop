@@ -98,6 +98,22 @@ let CarInfo = ({state,config,cost,handleSlider,readOnly}) =>{
                 </TableCell>
                </TableRow>
                <TableRow>
+                <TableCell>Color:</TableCell>
+                <TableCell>
+                  <Tooltip title={config.color} placement="left" open={true}>
+                    <Slider
+                      id="COLOR"
+                      max={16777215}
+                      min={5}
+                      step={1}
+                      value={config.color}
+                      disabled={readOnly}
+                      onChange={(e,v)=>handleSlider(e,v,"COLOR")}
+                    />
+                  </Tooltip>
+                </TableCell>
+               </TableRow>
+               <TableRow>
                 <TableCell>Estimated Cost:</TableCell>
                 <TableCell>${Math.floor(calculateCarCost(config))}</TableCell>
               </TableRow>

@@ -3,10 +3,12 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Pit from './Pit';
 import PartsBinContainer from '../containers/PartsBinContainer';
+import Block from './Block';
 
 
 const styles = theme => ({
@@ -15,7 +17,7 @@ const styles = theme => ({
         },
   flex: {
     flex: 1
-  }
+  },
 });
 
 class  Workspace extends Component{
@@ -35,16 +37,20 @@ class  Workspace extends Component{
 				</Typography>*/}
         <Button className={classes.button} disabled = {this.props.loading} variant="raised" color="primary" onClick = {this.props.handleTrainDriver}>Train Driver</Button>
 	<Button className={classes.button} disabled = {this.props.loading} variant="raised" color="secondary" onClick = {this.props.handleTestDrive}>Test Drive</Button>
-  <TextField
-          id="n_episodes"
-          label="Number of Episodes"
-          type="number"
-          value = {this.props.numEpisodes}
-          onChange={(e,v)=>this.props.handleNumEpisodes(e)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
+    <label style={{color: 'gray'}}>Number of Episodes:</label>
+    <TextField
+            style={{width: '70%'}}
+            id="n_episodes"
+            type="number"
+            value = {this.props.numEpisodes}
+            onChange={(e,v)=>this.props.handleNumEpisodes(e)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            labelWidth={0}
+    />
+  </div>
 	</AppBar>
 				<svg width = {this.props.width} height = {this.props.height} onMouseUp = {(e)=>{ console.log(this.pitRef.current.vertexRefs);
                                                                                         let vertexRefs = this.pitRef.current.vertexRefs;

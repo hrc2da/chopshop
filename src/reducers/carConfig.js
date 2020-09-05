@@ -3,6 +3,8 @@ export const CAR_WIDTH_DEFAULT = 50;
 
 const carConfig = (state={}, action) =>{
 	switch(action.type){
+    case 'SET_COLOR':
+      return {...state, color: action.value};
     case 'SET_ENG_POWER':
       return {...state, eng_power: action.value};
     case 'SET_WHEEL_RAD':
@@ -46,7 +48,8 @@ const carConfig = (state={}, action) =>{
     case 'SET_WHEEL_DIST':
       return {...state, wheelDistance: action.value};
 
-      
+    case 'CLEAR_COLOR':
+      return {...state, color: undefined};
     case 'CLEAR_WHEEL_SIZE':
       return {...state, wheelSize : undefined};
     case 'CLEAR_MATERIAL':

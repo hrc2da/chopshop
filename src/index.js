@@ -9,54 +9,54 @@ import chopShopReducer from './reducers/index';
 import registerServiceWorker from './registerServiceWorker';
 import { createLogger } from 'redux-logger';
 import createSocketIoMiddleware from 'redux-socket.io';
-import io from 'socket.io-client'
+import io from 'socket.io-client';
 import thunkMiddleware from 'redux-thunk';
 
-let socket = io('http://localhost:5000');
-let socketIoMiddleware = createSocketIoMiddleware(socket, "ga/");
+// let socket = io('http://localhost:5000');
+// let socketIoMiddleware = createSocketIoMiddleware(socket, "ga/");
 let loggerMiddleware = createLogger();
 
-function socketReducer(state = {}, action){
-    switch(action.type){
-            case 'message':
-              return Object.assign({}, {message:action.data});
-            default:
-              return state;
-          }
+function socketReducer(state = {}, action) {
+  switch (action.type) {
+    case 'message':
+      return Object.assign({}, { message: action.data });
+    default:
+      return state;
+  }
 }
-let sess = '';
-socket.on('session_id', function(sess_id) {
-                  sess = sess_id;
-                  socket.emit('start_ga', sess);
-                 console.log(sess);
-             });
+// let sess = '';
+// socket.on('session_id', function (sess_id) {
+//   sess = sess_id;
+//   socket.emit('start_ga', sess);
+//   console.log(sess);
+// });
 
 function configureStore(preloadedState) {
-	return createStore(
-		chopShopReducer,
-		preloadedState,
-		applyMiddleware(
-			loggerMiddleware,
-      thunkMiddleware,
-      socketIoMiddleware
-		)
-	);
+  return createStore(
+    chopShopReducer,
+    preloadedState,
+    applyMiddleware(
+      loggerMiddleware,
+      thunkMiddleware
+      // socketIoMiddleware
+    )
+  );
 }
 let store = configureStore(initState);
-store.dispatch({type:'ga/hello', data:'Hello!'});
-socket.on('ga_car', function(data){
-                 console.log("got",data.session_id,"saved",sess);
-                 if(data.session_id==sess){
-                                       console.log("recieved:",data);
-                     store.dispatch({type:'ADD_GA_CAR', newCar:data.car});
-                                   }
-                 //only listen if the car is tagged with your id
-           });
-
+// store.dispatch({type:'ga/hello', data:'Hello!'});
+// socket.on('ga_car', function(data){
+//                  console.log("got",data.session_id,"saved",sess);
+//                  if(data.session_id==sess){
+//                                        console.log("recieved:",data);
+//                      store.dispatch({type:'ADD_GA_CAR', newCar:data.car});
+//                                    }
+//                  //only listen if the car is tagged with your id
+//            });
 
 ReactDOM.render(
-	<Provider store={store}>
-		<App />
-	</Provider>
-	, document.getElementById('root'));
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
 registerServiceWorker();
