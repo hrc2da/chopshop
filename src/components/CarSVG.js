@@ -6,7 +6,7 @@ export const transform = (coords,xOffset,yOffset,scale=1.0,rotation=90)=>{
   //return
   //coords.map(v=>[parseInt(scale*(Math.cos(theta)*v[0]-Math.sin(theta)*v[1]))+xOffset,
   //              parseInt(scale*(Math.sin(theta)*v[0]+Math.cos(theta)*v[1]))+yOffset])
-  console.log('GOT COORDS',coords);
+  // console.log('GOT COORDS',coords);
   return coords.map(v=>[parseInt(scale*(v[0])+xOffset), parseInt(scale*(v[1])+yOffset)])
 }
 
@@ -51,7 +51,7 @@ class CarSVG extends Component{
     //close the path
     pathStr += " L "+sortedCoords[0][0]+" "+sortedCoords[0][1];
     //console.log(pathStr);
-    return <path d={pathStr} fill={fill} fillOpacity={parseFloat(density)/1.0}/>
+    return <path d={pathStr} fill={fill} stroke="none" fillOpacity={parseFloat(density)/1.0}/>
   }
   componentDidUpdate(prevProps) {
       if (this.props.carWidth !== prevProps.carWidth) {
@@ -89,8 +89,8 @@ class CarSVG extends Component{
       let minWheelPosY = wheels.reduce((a,w)=>Math.min(a,w[1]),maxWheelPosY);
       let frontPair = wheels.filter(w=>w[1]==minWheelPosY); //not sure how to initialize min, just did a big number
       let rearPair = wheels.filter(w=>w[1]==maxWheelPosY);
-      console.log("FRONT PAIR",frontPair);
-      console.log("REAR PAIR", rearPair);
+      // console.log("FRONT PAIR",frontPair);
+      // console.log("REAR PAIR", rearPair);
       wheelPairs = [frontPair,rearPair].map((pair)=>transform(pair,xOffset,yOffset,2.0));
     }
 
@@ -108,7 +108,7 @@ class CarSVG extends Component{
            {hull1 && this.coords2SVG(hull1,this.props.hullColor,this.props.config.hull_densities[1],xOffset,yOffset)}
            {hull2 && this.coords2SVG(hull2,this.props.hullColor,this.props.config.hull_densities[2],xOffset,yOffset)}
            {spoiler && this.coords2SVG(spoiler,this.props.hullColor,this.props.config.hull_densities[3],xOffset,yOffset)}
-           {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.5+(0.25*this.props.config.friction_lim/1e3),xOffset,yOffset))}
+           {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.6+(0.25*this.props.config.friction_lim/1e4),xOffset,yOffset))}
 
            //ADDING MEASUREMENTS
 
@@ -140,7 +140,7 @@ class CarSVG extends Component{
           {hull1 && this.coords2SVG(hull1,this.props.hullColor,this.props.config.hull_densities[1],xOffset,yOffset)}
           {hull2 && this.coords2SVG(hull2,this.props.hullColor,this.props.config.hull_densities[2],xOffset,yOffset)}
           {spoiler && this.coords2SVG(spoiler,this.props.hullColor,this.props.config.hull_densities[3],xOffset,yOffset)}
-          {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.5+(0.25*this.props.config.friction_lim/1e3),xOffset,yOffset))}
+          {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.6+(0.25*this.props.config.friction_lim/1e4),xOffset,yOffset))}
 
           //ADDING MEASUREMENTS
 
@@ -155,7 +155,7 @@ class CarSVG extends Component{
 
           //WIDTH
           {bumper && <text x={xOffset-20} y={bumperCoords[0][1]} fill="black">{carWidth} m</text>}
-    }
+    
         </React.Fragment>
     )
  } else if (this.widthChanged) {
@@ -172,7 +172,7 @@ class CarSVG extends Component{
           {hull1 && this.coords2SVG(hull1,this.props.hullColor,this.props.config.hull_densities[1],xOffset,yOffset)}
           {hull2 && this.coords2SVG(hull2,this.props.hullColor,this.props.config.hull_densities[2],xOffset,yOffset)}
           {spoiler && this.coords2SVG(spoiler,this.props.hullColor,this.props.config.hull_densities[3],xOffset,yOffset)}
-          {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.5+(0.25*this.props.config.friction_lim/1e3),xOffset,yOffset))}
+          {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.6+(0.25*this.props.config.friction_lim/1e4),xOffset,yOffset))}
 
           //ADDING MEASUREMENTS
 
@@ -203,7 +203,7 @@ class CarSVG extends Component{
              {hull1 && this.coords2SVG(hull1,this.props.hullColor,this.props.config.hull_densities[1],xOffset,yOffset)}
              {hull2 && this.coords2SVG(hull2,this.props.hullColor,this.props.config.hull_densities[2],xOffset,yOffset)}
              {spoiler && this.coords2SVG(spoiler,this.props.hullColor,this.props.config.hull_densities[3],xOffset,yOffset)}
-             {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.5+(0.25*this.props.config.friction_lim/1e3),xOffset,yOffset))}
+             {wheel_coords.map(w=>this.coords2SVG(w,this.props.wheelColor,0.6+(0.25*this.props.config.friction_lim/1e4),xOffset,yOffset))}
 
              //ADDING MEASUREMENTS
 

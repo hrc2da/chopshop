@@ -3,8 +3,18 @@ export const CAR_WIDTH_DEFAULT = 50;
 
 const carConfig = (state={}, action) =>{
 	switch(action.type){
+    case 'SET_CAR_CONFIG':
+      return action.value;
+    case 'SET_BRAKE_SCALAR':
+      return {...state, brake_scalar: action.value};
+    case 'SET_STEERING_SCALAR':
+      return {...state, steering_scalar: action.value};
+    case 'SET_REAR_STEERING_SCALAR':
+      return {...state, rear_steering_scalar: action.value};
+    case 'SET_MAX_SPEED':
+      return {...state, max_speed: action.value};
     case 'SET_COLOR':
-      return {...state, color: action.value};
+      return {...state, color: action.value.toString(16).padStart(6,"0")}; //pad with leading zeros for rgb hex
     case 'SET_ENG_POWER':
       return {...state, eng_power: action.value};
     case 'SET_WHEEL_RAD':
@@ -18,7 +28,6 @@ const carConfig = (state={}, action) =>{
       let mirrorIndex = -1;
       for(let i=0; i<state[action.polygon].length; i++){
         if(state[action.polygon][i][0]==-vCopy[0]&&state[action.polygon][i][1]==vCopy[1]){
-          console.log("BRREEAAAAAAAKINGGGGGGGG!!!!!!!!!!!!")
           mirrorIndex = i;
           break;
         }

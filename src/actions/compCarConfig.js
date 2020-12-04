@@ -16,9 +16,19 @@ export const clearCompCarConfig = ()=>{
     }
 }
 
+export const deselectCompCar = ()=>{
+    return (dispatch, getState) => {
+        let testedCars = getState()['testedCars'];
+        let currentCar = testedCars[testedCars.length-1];
+        dispatch(setTestDriveVideo(currentCar.video));
+        dispatch(clearCompCarConfig());
+        
+    }
+}
+
 export const selectCompCar = (type,index) =>{
     return (dispatch, getState) => {
-        let compCar = getState()[type][index]
+        let compCar = getState()[type][index];
         dispatch(setCompCarConfig(compCar));
         dispatch(setTestDriveVideo(compCar.video));
         return;

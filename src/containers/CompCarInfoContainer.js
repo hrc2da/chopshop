@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import CarInfo from '../components/CarInfo';
+import CarInfoCompact from '../components/CarInfoCompact';
 import { setConfigVar, ENG_POWER } from '../actions/carConfig';
 //import { setConfigVar, clearConfigVar } from '../actions/carConfig';
 function mapStateToProps(state) {
@@ -9,10 +9,6 @@ function mapStateToProps(state) {
     readOnly: true
   }
 }
-function mapDispatchToProps(dispatch,state){
-  return{
-    handleSlider: (e,v,type)=>{dispatch(setConfigVar(type,v));}
-  }
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(CarInfo);
+
+export default connect(mapStateToProps)(CarInfoCompact);

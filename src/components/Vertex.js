@@ -12,7 +12,7 @@ class Vertex extends Component{
   fill = "white";
   handleMouseDown = (e) => {
     e.preventDefault();
-    console.log("mousedown");
+    // console.log("mousedown");
     this.coords = {
       x: e.pageX,
       y: e.pageY
@@ -25,7 +25,7 @@ class Vertex extends Component{
   
   handleMouseUp = (e) => {
     e.preventDefault();
-    console.log("MOUSE UP! here");
+    // console.log("MOUSE UP! here");
     this.stroke=1;
     this.fill="white";
     document.removeEventListener('mousemove', this.handleMouseMove);
@@ -41,7 +41,7 @@ class Vertex extends Component{
   
   handleMouseMove = (e) => {
     e.preventDefault();
-    console.log("moving!!!!!!!!!!!!!!!!!!!!!!");
+    // console.log("moving!!!!!!!!!!!!!!!!!!!!!!");
     const xDiff = this.coords.x - e.pageX;
     const yDiff = 0;
     // const yDiff = this.coords.y - e.pageY;
@@ -93,8 +93,8 @@ class Vertex extends Component{
   }
 
   render() {
-    console.log("stroke is ",this.stroke);
-    console.log("fill is ",this.fill);
+    // console.log("stroke is ",this.stroke);
+    // console.log("fill is ",this.fill);
     return (
       <React.Fragment>
       <g> 

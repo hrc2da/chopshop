@@ -11,7 +11,12 @@ import { createLogger } from 'redux-logger';
 import createSocketIoMiddleware from 'redux-socket.io';
 import io from 'socket.io-client';
 import thunkMiddleware from 'redux-thunk';
-
+import { loadState, saveState } from './localStorage';
+import { getSession } from './actions/auth';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { orange, blue, yellow,  green } from '@material-ui/core/colors';
+import { Create } from '@material-ui/icons';
 // let socket = io('http://localhost:5000');
 // let socketIoMiddleware = createSocketIoMiddleware(socket, "ga/");
 let loggerMiddleware = createLogger();
@@ -42,7 +47,7 @@ function configureStore(preloadedState) {
     )
   );
 }
-let store = configureStore(initState);
+// let store = configureStore(initState);
 // store.dispatch({type:'ga/hello', data:'Hello!'});
 // socket.on('ga_car', function(data){
 //                  console.log("got",data.session_id,"saved",sess);
@@ -52,10 +57,42 @@ let store = configureStore(initState);
 //                                    }
 //                  //only listen if the car is tagged with your id
 //            });
+let persistedState = loadState();
+let loadedState = Object.assign({},initState,persistedState);
+
+let store = configureStore(loadedState);
+
+store.subscribe(()=>{
+  saveState({
+    userId: store.getState().userId
+  });
+});
+
+store.dispatch(getSession());
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: blue[300],
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: orange[500],//'#11cb5f',
+    },
+    text: {
+      primary: blue[900],
+      secondary: blue[800],
+    }
+  },
+});
 
 ReactDOM.render(
   <Provider store={store}>
+   <ThemeProvider theme={theme}>
     <App />
+    </ThemeProvider>
   </Provider>,
   document.getElementById('root')
 );

@@ -36,7 +36,6 @@ export const calculateDrivetrainCost = (config)=>{
 }
 
 export const trapezoidArea = (vertices)=>{
-  console.log("TRAPEZOIDAREA",vertices)
   let yMax = vertices.reduce((a,v)=>Math.max(a,v[1]),-1e7);
   let yMin = vertices.reduce((a,v)=>Math.min(a,v[1]),yMax);
   let h = Math.abs(yMax-yMin);
@@ -57,7 +56,7 @@ export const octagonArea = (vertices)=>{
   let centerYMin = centerverts.reduce((a,v)=>Math.min(a,v[1]),centerYMax);
   t1verts = t1verts.concat(centerverts.filter(v=>v[1]==centerYMax));
   t2verts = t2verts.concat(centerverts.filter(v=>v[1]==centerYMin));
-  console.log("CENTERVERTS",centerverts,"T1VERTS",t1verts,"CENTERYMAX",centerYMax);
+  // console.log("CENTERVERTS",centerverts,"T1VERTS",t1verts,"CENTERYMAX",centerYMax);
   return trapezoidArea(t1verts)+trapezoidArea(t2verts)+trapezoidArea(centerverts);
 }
 
@@ -75,7 +74,7 @@ export const calculateBodyWeight = (config)=>{
       console.log("unknown polygon");
     }
   }
-  console.log("ARRRRIAAAAAS",areas)
+  // console.log("ARRRRIAAAAAS",areas)
   return 0.125*areas.map((h,i)=>h*config.hull_densities[i]).reduce((a,h)=>a+h);
 }
 
@@ -87,7 +86,7 @@ export const calculateEngineWeight = (config)=>{
 export const calculateCarWeight = (config)=>{
   let bodyWeight = calculateBodyWeight(config);
   let engineWeight = calculateEngineWeight(config);
-  console.log("WEIGHTS:",bodyWeight,engineWeight);
+  // console.log("WEIGHTS:",bodyWeight,engineWeight);
   return bodyWeight+engineWeight;
 }
 

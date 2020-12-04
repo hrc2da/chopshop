@@ -8,8 +8,19 @@ export const WHEEL_RAD='WHEEL_RAD';
 export const WHEEL_WIDTH='WHEEL_WIDTH';
 export const FRICTION_LIM='FRICTION_LIM';
 export const HULL_VERTEX='HULL_VERTEX';
+export const FULL_CONFIG = 'FULL_CONFIG';
+export const BRAKE_SCALAR = 'BRAKE_SCALAR';
+export const STEERING_SCALAR = 'STEERING_SCALAR';
+export const REAR_STEERING_SCALAR = 'REAR_STEERING_SCALAR';
+export const MAX_SPEED = 'MAX_SPEED';
 
+//these are for the checkboxes only!!!
+export const BUMPER = 'BUMPER';
+export const SPOILER = 'SPOILER';
+export const FRONT_BODY = 'FRONT_BODY';
+export const REAR_BODY = 'REAR_BODY';
 
+const SET_CAR_CONFIG = 'SET_CAR_CONFIG';
 const SET_COLOR= 'SET_COLOR';
 const SET_ENG_POWER = 'SET_ENG_POWER';
 const SET_WHEEL_RAD = 'SET_WHEEL_RAD';
@@ -25,12 +36,37 @@ const CLEAR_DRIVETRAIN = 'CLEAR_DRIVETRAIN';
 const CLEAR_ENGINE = 'CLEAR_ENGINE';
 const SET_WHEEL_SIZE = 'SET_WHEEL_SIZE';
 const SET_HULL_VERTEX = 'SET_HULL_VERTEX';
+const SET_BRAKE_SCALAR = 'SET_BRAKE_SCALAR';
+const SET_STEERING_SCALAR = 'SET_STEERING_SCALAR';
+const SET_REAR_STEERING_SCALAR = 'SET_REAR_STEERING_SCALAR';
+const SET_MAX_SPEED = 'SET_MAX_SPEED';
+
 
 export const setConfigVar = (type, value) =>{
   switch (type) {
     case COLOR:
       return {
         type: SET_COLOR,
+        value: value
+      }
+    case BRAKE_SCALAR:
+      return {
+        type: SET_BRAKE_SCALAR,
+        value: value
+      }
+    case STEERING_SCALAR:
+      return {
+        type: SET_STEERING_SCALAR,
+        value: value
+      }
+    case REAR_STEERING_SCALAR:
+      return {
+        type: SET_REAR_STEERING_SCALAR,
+        value: value
+      }
+    case MAX_SPEED:
+      return {
+        type: SET_MAX_SPEED,
         value: value
       }
     case WHEEL_WIDTH:
@@ -98,3 +134,14 @@ export const removeConfigVar = (type, value) =>{
       };
   }
 };
+
+export const setCarConfig = (value) =>{
+  
+      return {
+        type: SET_CAR_CONFIG,
+        value: value
+      }
+  
+
+};
+

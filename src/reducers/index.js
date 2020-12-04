@@ -8,7 +8,10 @@ import testedCars from './testedCars';
 import loading from './loading';
 import tabs from './tabs';
 import numEpisodes from './testParams';
-import {carRacingUrl,carRacingStaticUrl,carRacingApiUrl,testDriveVideo} from './paths';
+import questions from './questions';
+import selectedFeatures from './selectedFeatures';
+import {session, userId} from './auth';
+import {carRacingUrl,carRacingStaticUrl,carRacingApiUrl,testDriveVideo, testDriveVideoArray, testDriveVideoCounter, statsPlotPath} from './paths';
 const chopShopReducer = combineReducers({
 	dimensions,
   partList,
@@ -19,10 +22,17 @@ const chopShopReducer = combineReducers({
   carRacingStaticUrl,
   carRacingApiUrl,
   testDriveVideo,
+  testDriveVideoArray,
+  testDriveVideoCounter,
+  statsPlotPath,
   testedCars,
   loading,
   numEpisodes,
-  tabs
+  tabs,
+  session,
+  userId,
+  questions,
+  selectedFeatures
 });
 
 export default chopShopReducer;

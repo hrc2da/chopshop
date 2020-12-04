@@ -4,14 +4,14 @@ import { setConfigVar, HULL_VERTEX } from '../actions/carConfig';
 import { transform, invtransform } from '../components/CarSVG';
 
 function mapStateToProps(state, ownProps) {
-  console.log("ownProps",ownProps);
-  console.log("carConfig",state.carConfig);
+  // console.log("ownProps",ownProps);
+  // console.log("carConfig",state.carConfig);
   let xOffset = state.dimensions.workspaceWidth/2;
   let yOffset = state.dimensions.workspaceHeight/2;
   let scale = 2.0;
-  console.log("untransformed coords",state.carConfig[ownProps.polygon][ownProps.index])
+  // console.log("untransformed coords",state.carConfig[ownProps.polygon][ownProps.index])
   let transformedCoords = transform([state.carConfig[ownProps.polygon][ownProps.index]],xOffset,yOffset,scale);
-  console.log("transformed coords",transformedCoords);
+  // console.log("transformed coords",transformedCoords);
   return {
     x_max : state.dimensions ? state.dimensions.workspaceWidth : 0,
     y_max : state.dimensions ? state.dimensions.workspaceHeight : 0,
@@ -29,9 +29,9 @@ function mapDispatchToProps(dispatch,ownProps) {
 
   return { 
     handleMove : (e,x,y,xOffset,yOffset,scale) => {
-                              console.log("itransform this: ",x,y);
+                              // console.log("itransform this: ",x,y);
                               let iCoords = invtransform([[x,y]],xOffset,yOffset,scale);
-                              console.log("itransformed: ", iCoords[0])
+                              // console.log("itransformed: ", iCoords[0])
                               dispatch(setConfigVar(HULL_VERTEX, {polygon:ownProps.polygon,index:ownProps.index,x:iCoords[0][0],y:iCoords[0][1]}))}
   }
 }

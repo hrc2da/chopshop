@@ -3,6 +3,7 @@ import UserCarContainer from '../containers/UserCarContainer';
 import VertexContainer from '../containers/VertexContainer';
 import CompCarContainer from '../containers/CompCarContainer';
 import { calculateCarWeight, calculateCarCost } from '../util/carActions';
+import {green, blue} from '@material-ui/core/colors';
 
 class Pit extends Component{
   constructor(props) {
@@ -18,11 +19,11 @@ class Pit extends Component{
         this.vertexRefs.push(React.createRef());
       }
     }
-    console.log("THIS MANY REFS:",this.vertexRefs.length);
+    // console.log("THIS MANY REFS:",this.vertexRefs.length);
    }
 
   render () {
-    console.log(this.polyhulls);
+    // console.log(this.polyhulls);
 
     // 4 increments of 48936 from $7312 to $203056
     let cost = Math.floor(calculateCarCost(this.props.config));
@@ -88,19 +89,20 @@ class Pit extends Component{
           <defs>
               // DEFINITIONS FOR THE DIFFERENT GRID SIZES
               <pattern id="smallGrid" width={smallBlockWidth} height={smallBlockHeight} patternUnits="userSpaceOnUse">
-                  <path d={"M " + smallBlockWidth + " 0 L 0 0 0 " + smallBlockHeight} fill="none" stroke="gray" stroke-width="0.5"/>
+                  <path d={"M " + smallBlockWidth + " 0 L 0 0 0 " + smallBlockHeight} fill="none" stroke={blue[300]} stroke-width="0.5"/>
               </pattern>
 
               <pattern id="grid" width={bigBlockWidth} height={bigBlockHeight} patternUnits="userSpaceOnUse">
                   <rect width={bigBlockWidth} height={bigBlockHeight} fill="url(#smallGrid)"/>
-                  <path d={"M " + bigBlockWidth + " 0 L 0 0 0 " + bigBlockHeight} fill="none" stroke="gray" stroke-width="1"/>
+                  <path d={"M " + bigBlockWidth + " 0 L 0 0 0 " + bigBlockHeight} fill="none" stroke={blue[300]} stroke-width="3"/>
               </pattern>
           </defs>
-
+          {/* <rect fill={green[900]} width={w} height={h} /> */}
+          {/* <rect fill="#eee" width={w} height={h} /> */}
           <rect fill="url(#grid)" width={w} height={h} />
 
-          // OIL SPILL
-          <image xlinkHref="https://i.imgur.com/ZRpYn7w.png" x={w/2+100} y={h/2-240} width={300} opacity={0.8} />
+          {/* // OIL SPILL
+          <image xlinkHref="https://i.imgur.com/ZRpYn7w.png" x={w/2+100} y={h/2-240} width={300} opacity={0.8} /> */}
 
           {/*<rect
             fill="none"
@@ -142,7 +144,7 @@ class Pit extends Component{
             fill="black"
           />
 
-          // ARROW
+          {/* // ARROW
           <polygon
             points={String(arrowPoints)}
             stroke="black"
@@ -168,7 +170,7 @@ class Pit extends Component{
           // COST
           {costStacks.map((val, index) => {
               return <image xlinkHref="https://i.imgur.com/7AEGspP.png" x={costX} y={costY - (index * 25)} width={80} />
-          })}
+          })} */}
 
           {/*<line
             x1={this.props.width ? 0.05*this.props.width : 0.05*600}
@@ -206,7 +208,7 @@ class Pit extends Component{
           <UserCarContainer />
           <CompCarContainer />
           {this.polyhulls.map((p,i)=>p.map((v,j)=>{
-            console.log(0+this.polyhulls.slice(0,i).reduce((a,p)=>a+p.length,0));
+            // console.log(0+this.polyhulls.slice(0,i).reduce((a,p)=>a+p.length,0));
             return <VertexContainer
             ref={this.vertexRefs[j+this.polyhulls.slice(0,i).reduce((a,p)=>a+p.length,0)]} //indexing over jagged array
             polygon={"hull_poly"+String(i+1)}

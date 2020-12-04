@@ -9,8 +9,8 @@ let CarRadar = ({labels,values,config,gas,reward,grass,title})=>{
         datasets: [
             {
                 label: title,
-                backgroundColor: 'rgba(179,181,198,0.2)',
-                borderColor: 'rgba(179,181,198,1)',
+                backgroundColor: '#64b5f6',
+                borderColor: 'rgba(13,71,161,0.5)',
                 pointBackgroundColor: 'rgba(179,181,198,1)',
                 pointBorderColor: '#fff',
                 pointHoverBackgroundColor: '#fff',
@@ -20,11 +20,29 @@ let CarRadar = ({labels,values,config,gas,reward,grass,title})=>{
         ],
         
     }
-    return <Radar data={data} options={{scale:{ticks:
-        {
-            userCallback: (value,index,values)=>''
-        }
-    }}} />
+    return <Radar data={data} height={100} 
+                options={{
+                    scale:{
+                        ticks:{
+                            userCallback: (value,index,values)=>''
+                        },
+                        pointLabels:{
+                            fontSize: 16,
+                            fontColor: '#0D47A1'
+                        },
+                        gridLines: {
+                            color: 'rgba(13,71,161,0.5)'
+                          },
+                        angleLines: {
+                            color: 'rgba(13,71,161,0.5)'
+                        }
+                    }
+                }}
+                legend={{
+                    display: false,
+                    position: 'left'
+                }}
+     />
 }
 
 export default CarRadar;

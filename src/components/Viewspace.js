@@ -7,12 +7,14 @@ import CompCarRadarContainer from '../containers/CompCarRadarContainer';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
 import CarInfoContainer from '../containers/CarInfoContainer';
 import CompCarInfoContainer from '../containers/CompCarInfoContainer';
 import { withStyles } from '@material-ui/core/styles';
 import CostBenefitPlotContainer from '../containers/CostBenefitPlotContainer';
 import TestDrivePlayerContainer from '../containers/TestDrivePlayerContainer';
 import { TAB_TOP,TAB_BOTTOM } from '../actions/tabs';
+import { PlayCircleFilledWhite } from '@material-ui/icons';
 function TabContainer(props) {
     return (
           <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -20,19 +22,26 @@ function TabContainer(props) {
           </Typography>
           );
 }
+function TabContainerNoPadding(props) {
+  return (
+        <Typography component="div" style={{ padding: 0 }}>
+            {props.children}
+        </Typography>
+        );
+}
 const styles = {
   tabbedView: {
-    height: 400,
+    height: 410,
     overflow:'auto',
-    marginBottom: 15
+    marginBottom: 15,
   },
   tab: {
     height:350
   },
 
   player: {
-    height:400,
-    width:400,
+    height:240,
+    width:320,
     margin: 'auto'
   }
 
@@ -52,37 +61,49 @@ class Viewspace extends React.Component {
     const secondaryColor = theme.palette.secondary.main;
     return(
       <React.Fragment>
-	    <Paper className={classes.tabbedView}>
-        <Tabs value={this.props.tabValueTop} onChange ={(e,v)=>this.props.handleSwitchTab(e,TAB_TOP,v)} scrollable scrollButtons="auto">
-          <Tab label="Car Details" />
-          <Tab label="Car Analysis" />
-          <Tab label="Test Drives" />
-        </Tabs>
-        {this.props.tabValueTop === 0 && <TabContainer><CarInfoContainer /></TabContainer>}
-        {this.props.tabValueTop === 1 && <TabContainer><UserCarRadarContainer /></TabContainer>}
-        {this.props.tabValueTop === 2 && <TabContainer className={classes.tab}><CostBenefitPlotContainer /></TabContainer>}
-	    </Paper>
-      <Paper elevation={4}>
-        <Tabs value={this.props.tabValueBottom} onChange={(e,v)=>this.props.handleSwitchTab(e,TAB_BOTTOM,v)} >
-          <Tab label="Test Drive Video" />
-          <Tab label="Selected Car Details" />
-          <Tab label="Selected Car Results" />
+        <Paper elevation={4} style={{height:"300px"}} >
+          <Tabs 
+            value={this.props.tabValueBottom} 
+            onChange={(e,v)=>this.props.handleSwitchTab(e,TAB_BOTTOM,v)} 
+            style={{backgroundColor:primaryColor, color:"white"}}
+          >
+            <Tab label="Car Analysis" />
+            <Tab label="Test Drive Video" />
+            <Tab label="Selected Car Details" />
           </Tabs>
-        {this.props.tabValueBottom === 0 && 
-            <div style={{backgroundColor:primaryColor}}>
-              <div className={classes.player}>
+          {this.props.tabValueBottom === 0 && <TabContainer><UserCarRadarContainer /></TabContainer>}
+          {this.props.tabValueBottom === 1 && 
+            <Box style={{backgroundColor:primaryColor, height:"300px"}}>
+              <div className={classes.player} style={{padding:"13px"}}>
                 <TestDrivePlayerContainer/> 
               </div>
-            </div>}
-            {this.props.tabValueBottom === 1 && <TabContainer><CompCarInfoContainer /></TabContainer>}
-            {this.props.tabValueBottom === 2 && <TabContainer><CompCarRadarContainer /></TabContainer>}
+            </Box>}
         
-      </Paper>
+          {this.props.tabValueBottom === 2 && <TabContainer><CompCarInfoContainer /></TabContainer>}
+              
+          
+        </Paper>
+        <Paper className={classes.tabbedView}>
+          <Tabs 
+            value={this.props.tabValueTop} 
+            onChange ={(e,v)=>this.props.handleSwitchTab(e,TAB_TOP,v)} 
+            scrollable scrollButtons="auto"
+            style={{backgroundColor:primaryColor, color:"white"}}
+          >
+            <Tab label="Tune Component" />
+            {/* <Tab label="Selected Car Results" /> */}
+            <Tab label="Test Drive History" />
+          </Tabs>
+          {this.props.tabValueTop === 0 && <TabContainerNoPadding><CarInfoContainer /></TabContainerNoPadding>}
+          {/* {this.props.tabValueTop === 1 && <TabContainer><CompCarRadarContainer /></TabContainer>} */}
+          {this.props.tabValueTop === 1 && <TabContainer className={classes.tab}><CostBenefitPlotContainer /></TabContainer>}
+        </Paper>
+
       </React.Fragment>
     )
     }
 }
 
-export default withTheme()(withStyles(styles)(Viewspace));
+export default withTheme(withStyles(styles)(Viewspace));
 
 

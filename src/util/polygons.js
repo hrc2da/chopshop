@@ -17,10 +17,10 @@ export const arrListMean = (arrList) =>{
 //sorts the vertices of a CONVEX polygon in clockwise order
 export const clockwiseSort = (vertices) => {
   let interiorPoint = arrListMean(vertices);
-  console.log(interiorPoint);
+  // console.log(interiorPoint);
   let vectors = vertices.map(v=>arrDiff(v,interiorPoint));
-  console.log(vectors);
+  // console.log(vectors);
   let vertsWithRad = vectors.map((v,i)=>[...vertices[i],Math.atan2(v[1],v[0])])
-  console.log(vertsWithRad);
+  // console.log(vertsWithRad);
   return vertsWithRad.sort((a,b)=>b[2]-a[2]).map(v=>v.slice(0,2));
 }

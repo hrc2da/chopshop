@@ -8,7 +8,7 @@ function mapStateToProps(state) {
     config: state.carConfig,
     height: state.dimensions.workspaceHeight,
     width: state.dimensions.workspaceWidth,
-    hullColor: '#' + state.carConfig.color.toString(16),
+    hullColor: '#' + state.carConfig.color,
     wheelColor: "black",
     carLength: (calculateCarLength(state.carConfig)*.0254).toFixed(2),
     carWidth: (calculateCarWidth(state.carConfig)*.0254).toFixed(2)

@@ -1,0 +1,19 @@
+* test multiple resolutions/screens/etc.
+*** add min-width to the elements with static items
+* turn the info cards in carInfoStepper into a separate component that takes the config focus as an input (write a container class for it as well)
+* make sure that you switch to test drive video tab on test drive to see loading animation 
+
+* finish creating these for each of the features
+* finish the pictures and text for each
+* show the currently selected config feature by highlighting the button according to the state
+M * hook up the statistics for the cars
+* fix the info modal question textareas
+* make the help page pretty and click-through-slides
+* make radar axes absolute
+* change to the socket version and stream back multiple test drive videos -- also setup a progress bar that updates based on steps streamed back
+* basic styling stuff
+* dockerize and push everything...
+* general animations, hover events, etc.
+* highlight relevant areas on the car (workspace) when hovering over the feature focus buttons
+
+https://chopshop.ngrok.io

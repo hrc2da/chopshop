@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
 import CarInfo from '../components/CarInfo';
+import CarInfoStepper from '../components/CarInfoStepper';
 import { setConfigVar, ENG_POWER } from '../actions/carConfig';
 //import { setConfigVar, clearConfigVar } from '../actions/carConfig';
 function mapStateToProps(state) {
   return {
     state: state,
     config: state.carConfig,
-    readOnly: false
+    readOnly: false,
+    focus: state.tabs ? state.tabs.config_focus : "ENG_POWER"
   }
 }
 function mapDispatchToProps(dispatch,state){
@@ -15,4 +17,4 @@ function mapDispatchToProps(dispatch,state){
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(CarInfo);
+export default connect(mapStateToProps,mapDispatchToProps)(CarInfoStepper);

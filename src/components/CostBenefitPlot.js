@@ -22,7 +22,7 @@ let CostBenefitPlot = ({testedCars,gaCars,handleSelectCompCar,handleClearCompCar
   let cars = [];
   let labels = [];
 
-  if(gaCars.length>0){
+  if(gaCars.length>0 && false){  //taking the GA cars out
     cars.push({
       label: 'Computer-Generated Cars',
       data: gaCars.map(((car,index)=>{
@@ -43,11 +43,20 @@ let CostBenefitPlot = ({testedCars,gaCars,handleSelectCompCar,handleClearCompCar
     cars.push({
       label: 'My Cars',
       data: testedCars.map(((car,index)=>{
-        let cost = car['result'][1]+calculateCarCost(car['config']);
-        let benefit = car['result'][0]-car['result'][2]
+        // let cost = car['result'][1]+calculateCarCost(car['config']);
+        // let benefit = car['result'][0]-car['result'][2]
+        let cost = calculateCarCost(car['config']);
+        let benefit = car['result'][0]
         return {id:index, x: benefit, y: cost};
       })),
-      backgroundColor: 'rgba(75,192,192,0.4)',
+      backgroundColor: testedCars.map(((car,index)=>{
+        if(index < testedCars.length-1){
+          return 'rgba(75,192,192,1)';
+        }
+        else{
+          return 'rgba(192,1,1,1)';
+        }
+      })),
       pointBorderColor: 'rgba(75,192,192,1)',
       pointBorderWidth: 5,
       pointHoverRadius: 20,
@@ -64,14 +73,18 @@ let CostBenefitPlot = ({testedCars,gaCars,handleSelectCompCar,handleClearCompCar
     datasets:cars
   }
   console.log(cars);
-  return <div>
+  return <div style={{height:"220px"}}>
+       <ul style={{listStyle: "none"}}>
+     <li><div style={{backgroundColor: "rgba(192,1,1,1)", height: "10px", width: "10px", display: "inline-block", margin:"1px"}}></div>Most recent test drive</li>
+   </ul>
   <Scatter
     data={data}
     getElementAtEvent={(e)=>{
       //assume it's only one element (I think that's why this is singular?)
       if (e.length > 0){
         let element = e[0];
-        let type = element._datasetIndex == 0 ? "gaCars" : "testedCars";
+        // let type = element._datasetIndex == 0 ? "gaCars" : "testedCars";
+        let type = "testedCars";
         return handleSelectCompCar(e,type,element._index);
       }
       else{
@@ -80,6 +93,8 @@ let CostBenefitPlot = ({testedCars,gaCars,handleSelectCompCar,handleClearCompCar
 
     }}
     options ={{
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
           xAxes: [{
               type: 'linear',
@@ -96,10 +111,27 @@ let CostBenefitPlot = ({testedCars,gaCars,handleSelectCompCar,handleClearCompCar
               labelString: 'Total Cost'
             }
         }],
-      }
+      },
+      legend: {
+        display: false
+      },
+      legendCallback: (chart) => {
+            var text = []; 
+        text.push('<ul class="' + chart.id + '-legend">'); 
+        
+          text.push('<li><span style="background-color: rgba(192,1,1,1)"></span>'); 
+  
+            text.push("Most recent test drive"); 
+    
+          text.push('</li>'); 
+         
+        text.push('</ul>'); 
+        return text.join(''); 
+      } 
     }
   }
   />
+
 </div>
 };
   /*return <React.Fragment>

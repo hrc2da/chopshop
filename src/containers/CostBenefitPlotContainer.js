@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import CostBenefitPlot from '../components/CostBenefitPlot';
-import { selectCompCar, clearCompCarConfig } from '../actions/compCarConfig';
+import { selectCompCar, deselectCompCar, clearCompCarConfig } from '../actions/compCarConfig';
 
 //import { setConfigVar, clearConfigVar } from '../actions/carConfig';
 function mapStateToProps(state) {
@@ -19,7 +19,7 @@ function mapDispatchToProps(dispatch,state){
       dispatch(selectCompCar(type,index));
     },
     handleClearCompCar: (e)=>{
-      dispatch(clearCompCarConfig());
+      dispatch(deselectCompCar());
     }
   }
 }

@@ -1,15 +1,44 @@
 import { WHEEL_SIZE, BODY, DRIVETRAIN, ENGINE } from '../actions/carConfig'
-
+import {
+  WHEEL_RAD, WHEEL_WIDTH, FRICTION_LIM, ENG_POWER, 
+  BRAKE_SCALAR, STEERING_SCALAR, REAR_STEERING_SCALAR, 
+  MAX_SPEED, COLOR, BUMPER, SPOILER, FRONT_BODY, REAR_BODY
+} from '../actions/carConfig'
 
 let defaultState = {
   dimensions: {
-    workspaceHeight: 800,
-    workspaceWidth: 1000
+    workspaceHeight: 600,
+    workspaceWidth: 800
   },
-  carRacingUrl: "http://localhost:5000/",
-  carRacingStaticUrl: "http://localhost:5000/static/",
-  carRacingApiUrl: "http://localhost:5000/",
+  tabs: {
+    top: 0,
+    bottom: 0,
+    video_modal: true,
+    config_focus: "ENG_POWER"
+  },
+  selectedFeatures:{
+    WHEEL_RAD: false,
+    WHEEL_WIDTH: false,
+    FRICTION_LIM: false,
+    ENG_POWER: false,
+    BRAKE_SCALAR: false,
+    STEERING_SCALAR: false,
+    REAR_STEERING_SCALAR: false,
+    MAX_SPEED: false,
+    COLOR: false,
+    BUMPER: false,
+    SPOILER: false,
+    REAR_BODY: false,
+    FRONT_BODY: false
+  },
+  userId: "",
+  carRacingUrl: "https://carracing.ngrok.io/",
+  carRacingStaticUrl: "https://carracing.ngrok.io/static/",
+  carRacingApiUrl: "https://carracing.ngrok.io/",
   testDriveVideo: "c2e700ac376f4ee18a68c59a9b6ce5d9.mp4",
+  testDriveVideoArray: ["http://localhost:5000/static/test0.mp4","http://localhost:5000/static/test1.mp4","http://localhost:5000/static/test2.mp4","http://localhost:5000/static/test3.mp4","http://localhost:5000/static/test4.mp4","http://localhost:5000/static/test5.mp4","http://localhost:5000/static/test6.mp4","http://localhost:5000/static/test7.mp4","http://localhost:5000/static/test8.mp4","http://localhost:5000/static/test9.mp4"],
+  statsPlotPath: "http://localhost:5000/static/performance.png",
+  testDriveMultiCounter: 0,
   numEpisodes: 1,
   carConfig: {
                hull_poly1: [[-60, 130], [60, 130], [60, 110], [-60, 110]],
@@ -25,7 +54,7 @@ let defaultState = {
                wheel_moment: 1.6,
                drive_train: [0, 0, 1, 1],
                friction_lim: 400,
-               color: 10
+               color: '0000ff'
   },
   testedCars: [],
   gaCars: [{
