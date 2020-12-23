@@ -27,7 +27,7 @@ const carConfig = (state={}, action) =>{
       let vCopy = state[action.polygon][action.index];
       let mirrorIndex = -1;
       for(let i=0; i<state[action.polygon].length; i++){
-        if(state[action.polygon][i][0]==-vCopy[0]&&state[action.polygon][i][1]==vCopy[1]){
+        if(action.index != i && state[action.polygon][i][0]==-vCopy[0]&&state[action.polygon][i][1]==vCopy[1]){
           mirrorIndex = i;
           break;
         }

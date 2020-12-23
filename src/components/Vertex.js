@@ -74,7 +74,7 @@ class Vertex extends Component{
     }
 
     //leftBound
-    if (this.props.x < 0) {
+    if (this.props.x - this.props.r < this.props.x_min) {
       this.props.handleMove(e,this.props.x,this.props.y,this.props.xOffset,this.props.yOffset,this.props.scale)
       this.handleMouseUp(e);
     }

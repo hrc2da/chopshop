@@ -294,6 +294,7 @@ let CarInfo = ({state,config,cost,handleSlider,readOnly,focus}) =>{
                                         marginLeft:"240px",
                                         
                                 }}
+                                disableAlpha
                             />
               
            

@@ -9,11 +9,13 @@ function mapStateToProps(state, ownProps) {
   let xOffset = state.dimensions.workspaceWidth/2;
   let yOffset = state.dimensions.workspaceHeight/2;
   let scale = 2.0;
+  let left_bound = document.getElementById("workspace") ? document.getElementById("workspace").getBoundingClientRect().left : 0;
   // console.log("untransformed coords",state.carConfig[ownProps.polygon][ownProps.index])
   let transformedCoords = transform([state.carConfig[ownProps.polygon][ownProps.index]],xOffset,yOffset,scale);
   // console.log("transformed coords",transformedCoords);
   return {
-    x_max : state.dimensions ? state.dimensions.workspaceWidth : 0,
+    x_min : left_bound,
+    x_max : state.dimensions ? state.dimensions.workspaceWidth + left_bound: 0,
     y_max : state.dimensions ? state.dimensions.workspaceHeight : 0,
     x : transformedCoords[0][0],
     y : transformedCoords[0][1],
