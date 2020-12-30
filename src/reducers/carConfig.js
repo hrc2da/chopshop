@@ -26,6 +26,12 @@ const carConfig = (state={}, action) =>{
     case 'SET_HULL_VERTEX':
       let vCopy = state[action.polygon][action.index];
       let mirrorIndex = -1;
+      if (vCopy[0] > 0 && action.x < 3) {
+        action.x = 3;
+      }
+      if (vCopy[0] < 0 && action.x > -3) {
+        action.x = -3;
+      }
       for(let i=0; i<state[action.polygon].length; i++){
         if(action.index != i && state[action.polygon][i][0]==-vCopy[0]&&state[action.polygon][i][1]==vCopy[1]){
           mirrorIndex = i;
