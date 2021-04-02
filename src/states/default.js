@@ -32,10 +32,16 @@ let defaultState = {
     FRONT_BODY: false
   },
   userId: "",
-  carRacingUrl: "https://carracing.ngrok.io/",
-  carRacingStaticUrl: "https://carracing.ngrok.io/static/",
-  carRacingApiUrl: "https://carracing.ngrok.io/",
+  // carRacingUrl: "https://carracing.ngrok.io/",
+  // carRacingStaticUrl: "https://carracing.ngrok.io/static/",
+  // carRacingApiUrl: "https://carracing.ngrok.io/",
+  // testDriveVideo: "c2e700ac376f4ee18a68c59a9b6ce5d9.mp4",
+
+  carRacingUrl: "http://128.84.9.187/api/",
+  carRacingStaticUrl: "http://128.84.9.187/api/static/",
+  carRacingApiUrl: "http://128.84.9.187/api/",
   testDriveVideo: "c2e700ac376f4ee18a68c59a9b6ce5d9.mp4",
+
   testDriveVideoArray: ["http://localhost:5000/static/test0.mp4","http://localhost:5000/static/test1.mp4","http://localhost:5000/static/test2.mp4","http://localhost:5000/static/test3.mp4","http://localhost:5000/static/test4.mp4","http://localhost:5000/static/test5.mp4","http://localhost:5000/static/test6.mp4","http://localhost:5000/static/test7.mp4","http://localhost:5000/static/test8.mp4","http://localhost:5000/static/test9.mp4"],
   statsPlotPath: "http://localhost:5000/static/performance.png",
   testDriveMultiCounter: 0,
