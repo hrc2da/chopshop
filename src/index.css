@@ -3,9 +3,33 @@ body {
   padding: 0;
   font-family: sans-serif;
   background-color: #eee;
-  background: linear-gradient(#70706F 0%, #7D7D7A 20%, #8E8D8D 40%, #A1A2A3 60%, #B3B6B5 80%, #BEC0C2 100%);
-  background: linear-gradient(#BEC0C2 0%, #B3B6B5 20%, #8E8D8D 40%, #A1A2A3 60%,  #7D7D7A 80%,  #70706F 100%);
-  background: linear-gradient(#BEC0C2 0%, #B3B6B5 20%, #A1A2A3  50%, #BEC0C2 100%);
+  background: linear-gradient(
+    #70706f 0%,
+    #7d7d7a 20%,
+    #8e8d8d 40%,
+    #a1a2a3 60%,
+    #b3b6b5 80%,
+    #bec0c2 100%
+  );
+  background: linear-gradient(
+    #bec0c2 0%,
+    #b3b6b5 20%,
+    #8e8d8d 40%,
+    #a1a2a3 60%,
+    #7d7d7a 80%,
+    #70706f 100%
+  );
+  background: linear-gradient(
+    #bec0c2 0%,
+    #b3b6b5 20%,
+    #a1a2a3 50%,
+    #bec0c2 100%
+  );
+  background: #f8f8f8;
+}
+
+.longform {
+  width: 85%;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap");

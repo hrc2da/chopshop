@@ -1,9 +1,8 @@
-const partList = (state={}, action) =>{
-	switch(action.type){
-		default:
-			return state;
-	}
-
-}
+const partList = (state = {}, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
 
 export default partList;

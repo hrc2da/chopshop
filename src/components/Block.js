@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-class Block extends Component{
+class Block extends Component {
   state = {
     x: this.props.x,
     y: this.props.y,
@@ -12,7 +12,7 @@ class Block extends Component{
     name: this.props.name,
     value: this.props.value,
     type: this.props.type,
-    fill: "yellow"
+    fill: "yellow",
   };
 
   constructor(props) {
@@ -21,32 +21,31 @@ class Block extends Component{
 
   //Enables this.state to be updated when props is updated by PartsBin
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.x === nextProps.x && prevState.y === nextProps.y)
-      return null;
-    return {...prevState, ...nextProps, x_i : nextProps.x, y_i : nextProps.y};
+    if (prevState.x === nextProps.x && prevState.y === nextProps.y) return null;
+    return { ...prevState, ...nextProps, x_i: nextProps.x, y_i: nextProps.y };
   }
 
   handleMouseDown = (e) => {
     this.coords = {
       x: e.pageX,
-      y: e.pageY
-    }
+      y: e.pageY,
+    };
     e.target.parentNode.parentNode.appendChild(e.target.parentNode);
-    document.addEventListener('mousemove', this.handleMouseMove);
+    document.addEventListener("mousemove", this.handleMouseMove);
   };
-  
+
   handleMouseUp = (e) => {
-    document.removeEventListener('mousemove', this.handleMouseMove);
+    document.removeEventListener("mousemove", this.handleMouseMove);
     if (this.isInPit()) {
       this.props.handleDrop(e);
     }
     this.coords = {};
     this.setState({
-     x: this.state.x_i,
-     y: this.state.y_i
+      x: this.state.x_i,
+      y: this.state.y_i,
     });
   };
-  
+
   handleMouseMove = (e) => {
     const xDiff = this.coords.x - e.pageX;
     const yDiff = this.coords.y - e.pageY;
@@ -56,19 +55,16 @@ class Block extends Component{
 
     this.setState({
       x: this.state.x - xDiff,
-      y: this.state.y - yDiff
+      y: this.state.y - yDiff,
     });
 
     this.handleOutOfBounds(e);
-
   };
 
-
   isInPit = () => {
-    if (this.state.y < this.props.y_max/2)
-      return true;
+    if (this.state.y < this.props.y_max / 2) return true;
     return false;
-  }
+  };
 
   handleOutOfBounds = (e) => {
     //rightBound
@@ -90,31 +86,31 @@ class Block extends Component{
     if (this.state.y + this.state.h > this.props.y_max) {
       this.handleMouseUp(e);
     }
-  }
-
-
+  };
 
   render() {
     const { x, y, h, w, fill } = this.state;
     return (
       <React.Fragment>
-      <g> <image
-      height={h}
-      width={w}
-      x={this.state.x}
-      y={this.state.y}
-      draggable='false'
-      onMouseDown={this.handleMouseDown}
-      onMouseUp={this.handleMouseUp}
-      preserveAspectRatio="none"
-      xlinkHref={this.state.img}
-      type={this.state.type}
-      value={this.state.value}
-      /> </g>
+        <g>
+          {" "}
+          <image
+            height={h}
+            width={w}
+            x={this.state.x}
+            y={this.state.y}
+            draggable="false"
+            onMouseDown={this.handleMouseDown}
+            onMouseUp={this.handleMouseUp}
+            preserveAspectRatio="none"
+            xlinkHref={this.state.img}
+            type={this.state.type}
+            value={this.state.value}
+          />{" "}
+        </g>
       </React.Fragment>
-      )
+    );
   }
 }
-
 
 export default Block;
